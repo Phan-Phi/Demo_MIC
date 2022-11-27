@@ -20,3 +20,20 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.slick-dots li button {
+  width: 1rem !important;
+  height: 1rem !important;
+  color: #e6e8ec !important;
+}
+
+.slick-dots li button:before {
+  font-size: 1rem !important;
+  color: #e6e8ec !important;
+  opacity: 0.8 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #b1b5c4 !important;
+  opacity: 1 !important;
+}

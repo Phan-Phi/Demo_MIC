@@ -5,6 +5,7 @@ import Image from "../Image";
 import { usePathname } from "next/navigation";
 import SkeletonItem from "../Skeleton";
 import { MetaItem } from "../../interface/responseSchema";
+import { format, parseISO } from "date-fns";
 
 interface CardProps {
   id: number;
@@ -17,14 +18,13 @@ interface CardProps {
 }
 
 type Props = {
-  widthSize: number;
-  heightSize: number;
+  // widthSize?: number;
+  // heightSize?: number;
   data: CardProps;
-  handleNextPage: () => void;
 };
 
 export default function CardItem(props: Props) {
-  const { handleNextPage, data, widthSize, heightSize } = props;
+  const { data } = props;
 
   const theme = useTheme();
   const pathname: string | null = usePathname();
@@ -32,16 +32,16 @@ export default function CardItem(props: Props) {
   const text =
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde quisquam, quam aliquam soluta accusamus dignissimos temporibus ut saepe inventore, facere sed possimus dolorum natus voluptatem esse. Alias inventore rerum velit!";
 
-  if (data == undefined) {
-    return <SkeletonItem widthSize={widthSize} heightSize={heightSize} />;
-  }
+  // if (data == undefined) {
+  //   return <SkeletonItem widthSize={widthSize} heightSize={heightSize} />;
+  // }
   return (
-    <Box sx={{ cursor: "pointer" }} onClick={() => handleNextPage()}>
+    <Box sx={{ cursor: "pointer" }}>
       <Box>
         {data.thumbnail && (
           <Image
-            // src={data.thumbnail}
-            src={"/img/Rectangle 3.png"}
+            src={data.thumbnail}
+            // src={"/img/Rectangle 3.png"}
             width="100%"
             height={250}
             alt="Logo"
@@ -50,7 +50,7 @@ export default function CardItem(props: Props) {
         )}
       </Box>
       <Title
-        variant="h1"
+        variant="h4"
         sx={{
           display: "-webkit-box",
           WebkitLineClamp: 2,
@@ -59,52 +59,55 @@ export default function CardItem(props: Props) {
           minHeight: 32 * 2,
         }}
       >
-        {/* {data.title} */}
-        01-01-01
+        {data.title}
       </Title>
 
       <Typography
-        variant="h2"
+        variant="h6"
         sx={{
+          fontSize: "12px",
           display: "inline-block",
-          color: theme.palette.common.black,
+          color: "black",
           borderRadius: "0.4rem",
           padding: "0.4rem",
-          border: `2px solid red`,
+          border: `2px solid #E6E8EC`,
+          fontWeight: "700",
         }}
       >
-        {/* {data.last_published_at &&
-          formatDate(data.last_published_at, "dd/MM/yyyy")} */}
-        01-01-01
+        {format(parseISO(data.last_published_at), "dd/MM/yyyy")}
       </Typography>
-      {pathname == "/news" && (
-        <Text
-          variant="h3"
-          sx={{
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            overflow: "hidden",
-            WebkitBoxOrient: "vertical",
-          }}
-        >
-          {text}
-          {/* 01-01-01 */}
-        </Text>
-      )}
+      {pathname == "/news" ||
+        ("/" && (
+          <Text
+            variant="h6"
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              overflow: "hidden",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {text}
+          </Text>
+        ))}
     </Box>
   );
 }
 const Title = styled(Typography)(({ theme }) => {
   return {
-    color: "red",
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#00A859",
     display: "block",
     marginTop: "1rem",
+    lineHeight: "32px",
   };
 });
 const Text = styled(Typography)(({ theme }) => {
   return {
+    fontSize: "16px",
     textAlign: "justify",
-    color: "red",
+    color: "#777E91",
     display: "block",
     marginTop: "1rem",
   };
