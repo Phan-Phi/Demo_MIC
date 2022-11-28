@@ -3,7 +3,7 @@ import { Image, Title } from "../../../components";
 import { HOME_PAGE_OUR_CATEGORIES, responseSchema } from "../../../interface";
 import { useMeasure } from "react-use";
 import Link from "next/link";
-import ROUTES from "../../../styles/routes";
+import ROUTES from "../../../routes";
 
 type Props = {
   data: responseSchema<HOME_PAGE_OUR_CATEGORIES>;

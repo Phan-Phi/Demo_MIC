@@ -1,5 +1,7 @@
 export * from "./utils";
 export * from "./home";
+export * from "./setting";
+export * from "./news";
 
 type responseSchema<T> = {
   meta: {

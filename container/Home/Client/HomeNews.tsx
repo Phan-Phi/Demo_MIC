@@ -4,14 +4,13 @@ import React from "react";
 import { Title } from "../../../components";
 import CardItem from "../../../components/Card/CardItem";
 import { HOME_PAGE_NEW, responseSchema } from "../../../interface";
-import ROUTES from "../../../styles/routes";
+import ROUTES from "../../../routes";
 
 type Props = {
   data: responseSchema<HOME_PAGE_NEW>;
 };
 
 export default function HomeNews(props: Props) {
-  console.log("🚀 ~ file: HomeNews.tsx ~ line 6 ~ HomeNews ~ props", props);
   const { data } = props;
 
   return (

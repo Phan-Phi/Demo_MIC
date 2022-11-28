@@ -1,11 +1,12 @@
 "use client";
 
 import { Box, styled, Typography, useTheme } from "@mui/material";
-import Image from "../Image";
 import { usePathname } from "next/navigation";
+import { format, parseISO } from "date-fns";
+
+import Image from "../Image";
 import SkeletonItem from "../Skeleton";
 import { MetaItem } from "../../interface/responseSchema";
-import { format, parseISO } from "date-fns";
 
 interface CardProps {
   id: number;
@@ -76,20 +77,19 @@ export default function CardItem(props: Props) {
       >
         {format(parseISO(data.last_published_at), "dd/MM/yyyy")}
       </Typography>
-      {pathname == "/news" ||
-        ("/" && (
-          <Text
-            variant="h6"
-            sx={{
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              overflow: "hidden",
-              WebkitBoxOrient: "vertical",
-            }}
-          >
-            {text}
-          </Text>
-        ))}
+      {pathname == "/news" && (
+        <Text
+          variant="h6"
+          sx={{
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+          }}
+        >
+          {text}
+        </Text>
+      )}
     </Box>
   );
 }

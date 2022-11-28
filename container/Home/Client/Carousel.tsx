@@ -5,13 +5,15 @@ import { useMeasure } from "react-use";
 import { Image } from "../../../components";
 import { HOME_PAGE, responseSchema } from "../../../interface";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 type Props = {
   data: responseSchema<HOME_PAGE>;
 };
 
 export default function Carousel({ data }: Props) {
   const [ref, { width }] = useMeasure();
-  console.log("🚀 ~ file: Carousel.tsx ~ line 14 ~ Carousel ~ width", width);
 
   const { items } = data;
   const { banners } = items[0];
@@ -25,18 +27,23 @@ export default function Carousel({ data }: Props) {
   };
 
   return (
-    <Box marginBottom="3rem" ref={ref}>
+    <Box
+      marginBottom="3rem"
+      ref={ref}
+      className="asasasasas"
+      sx={{ ".slick-arrow": { display: "none !important" } }}
+    >
       <Slider {...settings}>
         {banners &&
           banners.map((el, idx) => {
             return (
-              <Box height={(width * 9) / 16}>
+              <Box height={(width * 9) / 16} key={idx}>
                 <Image
                   src={el.value.icon}
                   // src={"/img/Rectangle 3.png"}
                   width="100%"
                   height="100%"
-                  alt="Logo"
+                  alt="Banner"
                   style={{ objectFit: "fill" }}
                 />
               </Box>
