@@ -29,42 +29,43 @@ declare module "@mui/material/styles/createPalette" {
 declare module "@mui/material/styles/createTypography" {
   interface Typography {
     hero?: TypographyStyle;
-    h1?: TypographyStyle;
-    h2?: TypographyStyle;
-    h3?: TypographyStyle;
-    h4?: TypographyStyle;
-    body1?: TypographyStyle;
-    body1Bold: TypographyStyle;
-    body2?: TypographyStyle;
-    body2Bold: TypographyStyle;
-    caption1: TypographyStyle;
-    caption1Bold: TypographyStyle;
-    caption2: TypographyStyle;
-    caption2Bold: TypographyStyle;
-    hairLine1: TypographyStyle;
-    hairLine2: TypographyStyle;
-    button1: TypographyStyle;
-    button2: TypographyStyle;
+    body1Bold?: TypographyStyle;
+    body2Bold?: TypographyStyle;
+    captionBold?: TypographyStyle;
+    caption2?: TypographyStyle;
+    caption2Bold?: TypographyStyle;
+    hairline1?: TypographyStyle;
+    hairline2?: TypographyStyle;
+    button1?: TypographyStyle;
+    button2?: TypographyStyle;
   }
 
   interface TypographyOptions {
     hero?: TypographyStyle;
-    h1?: TypographyStyle;
-    h2?: TypographyStyle;
-    h3?: TypographyStyle;
-    h4?: TypographyStyle;
-    body1?: TypographyStyle;
-    body1Bold: TypographyStyle;
-    body2?: TypographyStyle;
-    body2Bold: TypographyStyle;
-    caption1: TypographyStyle;
-    caption1Bold: TypographyStyle;
-    caption2: TypographyStyle;
-    caption2Bold: TypographyStyle;
-    hairLine1: TypographyStyle;
-    hairLine2: TypographyStyle;
-    button1: TypographyStyle;
-    button2: TypographyStyle;
+    body1Bold?: TypographyStyle;
+    body2Bold?: TypographyStyle;
+    captionBold?: TypographyStyle;
+    caption2?: TypographyStyle;
+    caption2Bold?: TypographyStyle;
+    hairline1?: TypographyStyle;
+    hairline2?: TypographyStyle;
+    button1?: TypographyStyle;
+    button2?: TypographyStyle;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    hero: true;
+    body1Bold: true;
+    body2Bold: true;
+    captionBold: true;
+    caption2: true;
+    caption2Bold: true;
+    hairline1: true;
+    hairline2: true;
+    button1: true;
+    button2: true;
   }
 }
 export {};

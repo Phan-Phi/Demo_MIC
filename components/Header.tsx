@@ -1,4 +1,5 @@
 import { Box, useTheme } from "@mui/material";
+import { customFont } from "../libs/customFont";
 
 export default function Header() {
   const theme = useTheme();

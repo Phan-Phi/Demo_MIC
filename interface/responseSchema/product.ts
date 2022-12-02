@@ -1,5 +1,8 @@
 import { MetaItem } from "./utils";
-
+interface ITEM {
+  block: string;
+  value: { icon: number; link: string };
+}
 export type PRODUCT_LISTING_ITEMS = {
   id: number;
   last_published_at: string;
@@ -26,4 +29,5 @@ export type PRODUCT_DETAIL_ITEMS = {
   is_on_homepage: boolean;
   specification: string;
   thumbnail: string;
+  purchase_icons: ITEM;
 };

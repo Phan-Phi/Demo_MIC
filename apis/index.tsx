@@ -13,6 +13,7 @@ const generatePathname = (data: string[]): string => {
 };
 
 export const TYPE_PARAMS = {
+  "contact.ContactPage": "contact.ContactPage",
   "home.HomePage": "home.HomePage",
   "about.AboutPage": "about.AboutPage",
   "gallery.GalleryListingPage": "gallery.GalleryListingPage",

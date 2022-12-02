@@ -1,5 +1,6 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
+import { customFont } from "../libs/customFont";
 
 const color = {
   primary: {
@@ -38,15 +39,7 @@ const defaultTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: [
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
+    fontFamily: customFont.style.fontFamily,
     hero: {
       fontSize: "6rem",
       lineHeight: "6rem",
@@ -92,12 +85,12 @@ const defaultTheme = createTheme({
       lineHeight: "1.5rem",
       fontWeight: 500,
     },
-    caption1: {
+    caption: {
       fontSize: "0.87rem",
       lineHeight: "1.5rem",
       fontWeight: 400,
     },
-    caption1Bold: {
+    captionBold: {
       fontSize: "0.87rem",
       lineHeight: "1.5rem",
       fontWeight: 500,
@@ -112,12 +105,12 @@ const defaultTheme = createTheme({
       lineHeight: "1.25rem",
       fontWeight: 600,
     },
-    hairLine1: {
+    hairline1: {
       fontSize: "1rem",
       lineHeight: "1rem",
       fontWeight: 700,
     },
-    hairLine2: {
+    hairline2: {
       fontSize: "0.75rem",
       lineHeight: "0.75rem",
       fontWeight: 700,
@@ -178,7 +171,7 @@ const theme = createTheme({
         root: {
           textTransform: "uppercase",
           color: defaultTheme.palette.neutral.neutral5,
-          ...defaultTheme.typography.hairLine2,
+          ...defaultTheme.typography.hairline2,
         },
       },
       defaultProps: {},

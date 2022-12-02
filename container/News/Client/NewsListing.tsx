@@ -1,5 +1,8 @@
 import { Box, Container, Grid, Link, Stack } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { useMemo } from "react";
+import useSWR from "swr";
+import { PAGES_API, TYPE_PARAMS } from "../../../apis";
 
 import { CardItem, Title } from "../../../components";
 import ButtonBase from "../../../components/Button/Button";
@@ -9,6 +12,7 @@ import {
   NEW_DETAIL_ITEMS,
   NEW_LISTING_ITEMS,
 } from "../../../interface/responseSchema/news";
+import { transformUrl } from "../../../libs/transformUrl";
 import ROUTES from "../../../routes";
 
 export type NewsProps = IPage<
@@ -16,9 +20,16 @@ export type NewsProps = IPage<
 >;
 
 export default function NewsListing(props: NewsProps) {
+  const router = useRouter();
   const { initData } = props;
   const dataListing = initData[0].items;
-
+  // const { data } = useSWR(
+  //   transformUrl(PAGES_API, {
+  //     fields: "*",
+  //     type: TYPE_PARAMS["product.ProductCategoryPage"],
+  //   })
+  // );
+  // console.log("🚀 ~ file: NewsListing.tsx:27 ~ NewsListing ~ data", data);
   const dataCategories = initData[1].items;
 
   const renderNewsCategories = useMemo(() => {

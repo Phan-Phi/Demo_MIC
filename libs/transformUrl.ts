@@ -20,7 +20,7 @@ export const transformUrl: FunctionType = (originalUrl, addtionalParams) => {
 };
 
 // export const transformUrl = (originalUrl, additionalUrlList) => {
-//   if (originalUrl) {
+//   if (originalUrl == undefined) {
 //     return "";
 //   }
 
