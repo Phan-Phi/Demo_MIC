@@ -18,3 +18,18 @@ export const transformUrl: FunctionType = (originalUrl, addtionalParams) => {
 
   return `${url}?${queryString.stringify(mergepParams)}`;
 };
+
+// export const transformUrl = (originalUrl, additionalUrlList) => {
+//   if (originalUrl) {
+//     return "";
+//   }
+
+//   const { url, query } = queryString.parseUrl(originalUrl);
+
+//   const mergeParams = {
+//     ...query,
+//     ...additionalUrlList,
+//   };
+
+//   return `${url}?${queryString.stringify(mergeParams)}`;
+// };

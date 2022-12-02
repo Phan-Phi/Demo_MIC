@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from "querystring";
 
 import axios from "../axios.config";
-import { SETTING_API, TYPE_PARAMS, PAGES_API } from "../apis";
+import { SETTING_API, TYPE_PARAMS, PAGES_API } from "../apis/index";
 import { transformUrl } from "./transformUrl";
 
 const prefetchData = async (
@@ -33,23 +33,19 @@ const prefetchData = async (
       ...new Set([...originalUrlList, ...additionalUrlList]),
     ];
 
-    // const resList = await Promise.all(
-    //   mergeUrlList.map((url) =>
-    //     axios.get(url).then(({ data }) => {
-    //       return data;
-    //     })
-    //   )
-    // );
-
     const originalResList = [];
     const fallbackList: Record<string, any> = {};
 
     for await (const res of mergedUrlList.map(async (el) => {
       return axios.get(el).then(({ data }) => {
+        // console.log("[el, data]", [el, data]);
         return [el, data];
       });
     })) {
       const [key, value] = res;
+      // console.log("🚀 ~ file: prefetchData.ts:45 ~ forawait ~ value", value);
+      // console.log("🚀 ~ file: prefetchData.ts:45 ~ forawait ~ key", key);
+      // console.log("🚀 ~ file: prefetchData.ts:45 ~ forawait ~ res", res);
 
       if (originalUrlList.includes(key)) {
         originalResList.push(value);
@@ -59,6 +55,7 @@ const prefetchData = async (
         fallbackList[key] = value;
       }
     }
+    // console.log("🚀 ~ file: prefetchData.ts:38 ~ fallbackList", fallbackList);
 
     return {
       resList: originalResList,

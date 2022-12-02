@@ -5,6 +5,7 @@ import GalleryListing, {
   GalleryProps,
 } from "../../container/Gallery/Client/GalleryListing";
 import prefetchData from "../../libs/prefetchData";
+import prefetchData2 from "../../libs/prefetchData2";
 import { transformUrl } from "../../libs/transformUrl";
 
 export default function GalleryPage(props: GalleryProps) {
@@ -29,14 +30,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       }),
     ];
 
-    const { resList, fallback } = await prefetchData(urls, {
+    // const { resList, fallback } = await prefetchData(urls, {
+    //   locale,
+    // });
+
+    const { resList2, fallback2 } = await prefetchData2(urls, {
       locale,
     });
+    // console.log(
+    //   "🚀 ~ file: index.tsx:40 ~ getServerSideProps ~ resList2",
+    //   resList2
+    // );
 
     return {
       props: {
-        initData: resList,
-        fallback,
+        initData: resList2,
+        fallback: fallback2,
       },
     };
   } catch (err) {
