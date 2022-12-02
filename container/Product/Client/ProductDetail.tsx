@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Box,
   Button,
   Container,
   Grid,
@@ -7,37 +9,40 @@ import {
   useTheme,
 } from "@mui/material";
 import useSWR from "swr";
-import { Image } from "../../../components";
+
+import { Image, Title } from "../../../components";
 import RelatedProduct from "../../../components/RelatedProduct";
 import { IPage } from "../../../interface";
-import { PRODUCT_DETAIL_ITEMS } from "../../../interface/responseSchema/product";
-import { useEffect, useState } from "react";
+import { useMeasure } from "react-use";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { transformUrl } from "../../../libs/transformUrl";
+import { PAGES_API, TYPE_PARAMS } from "../../../apis";
+import { PRODUCT_DETAIL_ITEMS } from "interface/responseSchema/product";
+import FormControl from "components/Input/FormControl";
 
 export type PropsProductDetail = IPage<[PRODUCT_DETAIL_ITEMS]>;
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function ProductDetail(props: PropsProductDetail) {
   const theme = useTheme();
+  const [ref, { width }] = useMeasure();
 
   const { initData } = props;
-
-  const {
-    description,
-    id,
-    images,
-    last_published_at,
-    meta,
-    purchase_icons,
-    specification,
-    thumbnail,
-    title,
-  } = initData[0];
+  const { description, id, images, meta, specification, title } = initData[0];
 
   const [relate, setRelate] = useState<PRODUCT_DETAIL_ITEMS[]>([]);
+  const [nav1, setNav1] = useState<Slider | undefined>(undefined);
+  const [nav2, setNav2] = useState<Slider | undefined>(undefined);
 
   const { data: dataRelate } = useSWR(
-    `https://mic.t-solution.vn/api/v2/pages/?child_of=${meta.parent.id}&fields=%2A&locale=${meta.locale}&type=product.ProductDetailPage`,
-    fetcher
+    transformUrl(PAGES_API, {
+      fields: "*",
+      type: TYPE_PARAMS["product.ProductDetailPage"],
+      child_of: meta.parent.id,
+      locale: meta.locale,
+    })
   );
 
   useEffect(() => {
@@ -56,26 +61,74 @@ export default function ProductDetail(props: PropsProductDetail) {
     setRelate(relatedList);
   }, [dataRelate]);
 
+  const renderSliderImage = useMemo(() => {
+    const lengthImages = images.length;
+
+    return (
+      <>
+        <Box>
+          <Slider asNavFor={nav2} ref={(slider1) => setNav1(slider1)}>
+            {images &&
+              images.map((el, idx: number) => {
+                return (
+                  <Box key={idx} ref={ref}>
+                    <Image
+                      key={idx}
+                      src={el.value}
+                      // src={"/img/Rectangle 3.png"}
+                      width="100%"
+                      height={width}
+                      alt="Logo"
+                      style={{ objectFit: "cover", borderRadius: "0.6rem" }}
+                    />
+                  </Box>
+                );
+              })}
+          </Slider>
+        </Box>
+
+        <Box
+          sx={{ marginTop: "1rem", "& .slick-slide": { padding: "0 0.5rem" } }}
+        >
+          <Slider
+            asNavFor={nav1}
+            ref={(slider2) => setNav2(slider2)}
+            slidesToShow={3}
+            swipeToSlide={true}
+            focusOnSelect={true}
+            infinite={lengthImages >= 3 ? true : false}
+          >
+            {images &&
+              images.map((el, idx: number) => {
+                return (
+                  <Box key={idx}>
+                    <Image
+                      src={el.value}
+                      width="100%"
+                      height={110}
+                      alt="Logo"
+                      style={{ objectFit: "cover", borderRadius: "0.6rem" }}
+                    />
+                  </Box>
+                );
+              })}
+          </Slider>
+        </Box>
+      </>
+    );
+  }, [nav1, nav2, images]);
+
   return (
     <Container>
       <Grid container marginTop="2rem" marginBottom="6rem">
-        <Grid item xs={12} md={12}>
-          <Grid container>
+        <Grid item xs={12} md={12} marginBottom="5rem">
+          <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
-              {thumbnail && (
-                <Image
-                  src={thumbnail}
-                  // src={"/img/Rectangle 3.png"}
-                  width="100%"
-                  height={250}
-                  alt="Logo"
-                  style={{ objectFit: "cover", borderRadius: "0.6rem" }}
-                />
-              )}
+              {renderSliderImage}
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <Title variant="h3">{title}</Title>
+              <TitleBold variant="h3">{title}</TitleBold>
               <TextBold variant="body1Bold">{description}</TextBold>
               <Typography variant="body2" marginBottom="1rem">
                 {specification}
@@ -92,17 +145,27 @@ export default function ProductDetail(props: PropsProductDetail) {
             "& .slick-slide": {
               padding: "0 1rem",
             },
+            "& .MuiSvgIcon-root": {
+              color: theme.palette.primary.main,
+              width: "2rem",
+              height: "2rem",
+              "&.slick-prev:hover,&.slick-next:hover": {
+                color: `${theme.palette.primary.main} !important`,
+              },
+            },
           }}
         >
-          <Title title={"Related Product"} />
+          <Title title="Related Product" />
           <RelatedProduct data={relate} />
         </Grid>
+
+        <FormControl control={control} name="nhap ten" label="name" />
       </Grid>
     </Container>
   );
 }
 
-const Title = styled(Typography)(({ theme }) => {
+const TitleBold = styled(Typography)(({ theme }) => {
   return {
     marginBottom: "1rem",
   };

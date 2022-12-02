@@ -1,12 +1,15 @@
-import { Box, Grid } from "@mui/material";
-
+import { useMemo } from "react";
+import Link from "next/link";
 import Slider from "react-slick";
+
+import { Box } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useCallback, useMemo, useState } from "react";
 import { PRODUCT_DETAIL_ITEMS } from "../interface/responseSchema/product";
 import CardProduct from "./Card/CardProduct";
-import Link from "next/link";
 import ROUTES from "../routes";
 
 type Props<T> = {
@@ -24,6 +27,8 @@ export default function RelatedProduct(props: Props<PRODUCT_DETAIL_ITEMS>) {
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
+    nextArrow: <ChevronRightIcon />,
+    prevArrow: <ChevronLeftIcon />,
     responsive: [
       {
         breakpoint: 1024,

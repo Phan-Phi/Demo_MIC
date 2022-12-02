@@ -25,7 +25,7 @@ export type PRODUCT_DETAIL_ITEMS = {
   last_published_at: string;
   meta: MetaItem;
   title: string;
-  images: string;
+  images: { block: string; value: string }[];
   is_on_homepage: boolean;
   specification: string;
   thumbnail: string;
