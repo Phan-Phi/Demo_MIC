@@ -1,9 +1,9 @@
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import { BLOG } from "constant";
+import Product, { ProductProps } from "container/Product/Client/Product";
+import prefetchData from "libs/prefetchData";
+import { transformUrl } from "libs/transformUrl";
 import { GetServerSidePropsContext } from "next";
-import { PAGES_API, TYPE_PARAMS } from "../../apis";
-import { BLOG } from "../../constant";
-import Product, { ProductProps } from "../../container/Product/Client/Product";
-import prefetchData from "../../libs/prefetchData";
-import { transformUrl } from "../../libs/transformUrl";
 
 export default function ProductPage(props: ProductProps) {
   return <Product {...props} />;

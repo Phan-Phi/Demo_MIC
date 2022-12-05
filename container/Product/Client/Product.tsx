@@ -1,14 +1,25 @@
-import { Container, Grid } from "@mui/material";
+import useSWR from "swr";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Container, Divider, Grid } from "@mui/material";
+
 import { Title } from "components";
+import CardProduct from "components/Card/CardProduct";
+import TabPanel from "components/Tabs/TabPanel";
+import Tabs from "components/Tabs/Tabs";
 import { IPage, responseSchema } from "interface";
+
 import {
   PRODUCT_CATEGORIES_ITEMS,
   PRODUCT_DETAIL_ITEMS,
   PRODUCT_LISTING_ITEMS,
 } from "interface/responseSchema/product";
-import Link from "next/link";
-import React, { useCallback } from "react";
 import ROUTES from "routes";
+import { BLOG } from "constant";
+import { useParams } from "hook/useParams";
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import { transformUrl } from "libs/transformUrl";
 
 export type ProductProps = IPage<
   [
@@ -18,24 +29,96 @@ export type ProductProps = IPage<
   ]
 >;
 
+const itemAll = {
+  id: 0,
+  title: "Tất cả",
+};
+
 export default function Product(props: ProductProps) {
   const { initData } = props;
   const dataListing = initData[0].items;
   const dataCategories = initData[1].items;
   const dataDetail = initData[2].items;
+  const router = useRouter();
 
-  const renderProductDetail = useCallback(() => {
-    return dataDetail.map((el, idx) => {
-      return (
-        <Grid item xs={12} md={3} key={idx}>
-          <Link
-            href={`/${ROUTES.product}/${el.id}`}
-            style={{ textDecoration: "none" }}
-          ></Link>
+  const [currentTabs, setCurrentTabs] = useState<number>(0);
+  const [dataTabpanel, setDataTabPanel] = useState(dataDetail);
+
+  const [params, setParams] = useParams({
+    initState: {
+      fields: "*",
+      type: TYPE_PARAMS["product.ProductDetailPage"],
+      locale: router.locale,
+      limit: BLOG.BLOG_PRODUCT,
+    },
+    excludeKeys: ["limit", "offset", "type"],
+  });
+  const { data } = useSWR(transformUrl(PAGES_API, params));
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    setDataTabPanel(data.items);
+  }, [data]);
+
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent, newValue: number) => {
+      setCurrentTabs(newValue);
+
+      if (newValue == 0) {
+        setParams({
+          child_of: undefined,
+        });
+      } else {
+        setParams({
+          child_of: newValue,
+        });
+      }
+    },
+    [currentTabs]
+  );
+
+  const renderTabs = useMemo(() => {
+    if (!dataCategories) {
+      return null;
+    }
+
+    const mergeDataTabs = [itemAll, ...dataCategories];
+
+    return (
+      <Tabs
+        data={mergeDataTabs}
+        currentTabs={currentTabs}
+        onChange={handleChange}
+      />
+    );
+  }, [currentTabs, dataCategories]);
+
+  const renderTabPanel = useMemo(() => {
+    if (!dataTabpanel) {
+      return null;
+    }
+    return (
+      <TabPanel value={currentTabs} index={currentTabs}>
+        <Grid container spacing={3}>
+          {dataTabpanel.map((el, idx) => {
+            return (
+              <Grid key={idx} item xs={12} sm={6} md={3}>
+                <Link
+                  href={`/${ROUTES.product}/${el.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <CardProduct data={el} />
+                </Link>
+              </Grid>
+            );
+          })}
         </Grid>
-      );
-    });
-  }, [dataDetail]);
+      </TabPanel>
+    );
+  }, [dataTabpanel, currentTabs]);
 
   return (
     <Container>
@@ -44,12 +127,14 @@ export default function Product(props: ProductProps) {
           <Title title={dataListing[0].title} />
         </Grid>
 
-        <Grid item xs={12}></Grid>
-
         <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={12} md={3}></Grid>
-          </Grid>
+          {renderTabs}
+
+          <Divider />
+        </Grid>
+
+        <Grid item xs={12} marginTop="2rem">
+          {renderTabPanel}
         </Grid>
       </Grid>
     </Container>

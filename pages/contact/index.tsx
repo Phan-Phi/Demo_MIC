@@ -1,8 +1,8 @@
 import { PAGES_API, TYPE_PARAMS } from "apis";
+import Contact, { ContactProps } from "container/Contact/Client/Contact";
 import prefetchData from "libs/prefetchData";
 import { transformUrl } from "libs/transformUrl";
 import { GetServerSidePropsContext } from "next";
-import Contact, { ContactProps } from "../../container/Contact/Client/Contact";
 
 export default function ContactPage(props: ContactProps) {
   return <Contact {...props} />;

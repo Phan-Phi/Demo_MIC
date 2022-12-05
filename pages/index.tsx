@@ -1,8 +1,8 @@
-import { PAGES_API, TYPE_PARAMS } from "../apis";
-import Home, { HomeProps } from "../container/Home/components/Home";
 import { GetServerSidePropsContext } from "next";
-import prefetchData from "../libs/prefetchData";
-import { transformUrl } from "../libs/transformUrl";
+import { transformUrl } from "libs/transformUrl";
+import prefetchData from "libs/prefetchData";
+import Home, { HomeProps } from "container/Home/components/Home";
+import { PAGES_API, TYPE_PARAMS } from "apis";
 
 export default function HomePage(props: HomeProps) {
   return <Home {...props} />;

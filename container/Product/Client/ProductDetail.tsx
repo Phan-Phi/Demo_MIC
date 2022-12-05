@@ -75,7 +75,6 @@ export default function ProductDetail(props: PropsProductDetail) {
                     <Image
                       key={idx}
                       src={el.value}
-                      // src={"/img/Rectangle 3.png"}
                       width="100%"
                       height={width}
                       alt="Logo"

@@ -201,25 +201,33 @@ const theme = createTheme({
       },
     },
 
-    MuiTab: {
+    MuiTabs: {
       styleOverrides: {
         root: {
-          minHeight: "30px",
-          "&.Mui-selected": {
+          "& .Mui-selected": {
             ...defaultTheme.typography.button2,
             borderRadius: 90,
             color: defaultTheme.palette.common.white,
             backgroundColor: defaultTheme.palette.neutral.neutral3,
             padding: "6px 12px",
           },
-        },
-      },
-      defaultProps: {},
-    },
 
-    MuiTabs: {
-      styleOverrides: {
-        root: {},
+          "& .MuiTabs-flexContainer": {
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "2rem",
+          },
+
+          "& .MuiTabs-scroller": {
+            overflow: "scroll !important",
+          },
+
+          "& .MuiButtonBase-root": {
+            padding: "6px 12px",
+            textTransform: "capitalize",
+            minHeight: "30px",
+          },
+        },
         indicator: { display: "none" },
       },
       defaultProps: {},

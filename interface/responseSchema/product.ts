@@ -12,11 +12,11 @@ export type PRODUCT_LISTING_ITEMS = {
 
 export type PRODUCT_CATEGORIES_ITEMS = {
   id: number;
-  last_published_at: string;
-  meta: MetaItem;
+  last_published_at?: string;
+  meta?: MetaItem;
   title: string;
-  image: string;
-  is_on_homepage: boolean;
+  image?: string;
+  is_on_homepage?: boolean;
 };
 
 export type PRODUCT_DETAIL_ITEMS = {

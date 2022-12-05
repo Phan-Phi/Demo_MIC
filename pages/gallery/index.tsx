@@ -1,12 +1,13 @@
-import { GetServerSidePropsContext } from "next";
-import { PAGES_API, TYPE_PARAMS } from "../../apis";
-import { BLOG } from "../../constant";
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import { BLOG } from "constant";
 import GalleryListing, {
   GalleryProps,
-} from "../../container/Gallery/Client/GalleryListing";
+} from "container/Gallery/Client/GalleryListing";
+import { transformUrl } from "libs/transformUrl";
+import { GetServerSidePropsContext } from "next";
+
 import prefetchData from "../../libs/prefetchData";
 import prefetchData2 from "../../libs/prefetchData2";
-import { transformUrl } from "../../libs/transformUrl";
 
 export default function GalleryPage(props: GalleryProps) {
   return <GalleryListing {...props} />;

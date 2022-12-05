@@ -1,12 +1,9 @@
-import React from "react";
-import NewsListing, {
-  NewsProps,
-} from "../../container/News/Client/NewsListing";
 import { GetServerSidePropsContext } from "next";
-import { transformUrl } from "../../libs/transformUrl";
-import { PAGES_API, TYPE_PARAMS } from "../../apis";
-import prefetchData from "../../libs/prefetchData";
-import { BLOG } from "../../constant";
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import { transformUrl } from "libs/transformUrl";
+import { BLOG } from "constant";
+import prefetchData from "libs/prefetchData";
+import NewsListing, { NewsProps } from "container/News/Client/NewsListing";
 
 export default function NewsPage(props: NewsProps) {
   return <NewsListing {...props} />;
