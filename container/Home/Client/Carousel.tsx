@@ -2,11 +2,11 @@ import { Box } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 import { useMeasure } from "react-use";
-import { Image } from "../../../components";
-import { HOME_PAGE, responseSchema } from "../../../interface";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { HOME_PAGE, responseSchema } from "interface";
+import { Image } from "components";
 
 type Props = {
   data: responseSchema<HOME_PAGE>;

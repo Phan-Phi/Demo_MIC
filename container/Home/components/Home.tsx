@@ -6,17 +6,18 @@ import {
   InputBase,
   Stack,
 } from "@mui/material";
-import ButtonBase from "../../../components/Button/Button";
+
 import OurCategories from "../Client/OurCategories";
 import HomeNews from "../Client/HomeNews";
 import Carousel from "../Client/Carousel";
+
 import {
   HOME_PAGE,
+  HOME_PAGE_NEW,
+  HOME_PAGE_OUR_CATEGORIES,
   IPage,
   responseSchema,
-  HOME_PAGE_OUR_CATEGORIES,
-  HOME_PAGE_NEW,
-} from "../../../interface/responseSchema";
+} from "interface";
 
 export type HomeProps = IPage<
   [

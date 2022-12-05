@@ -1,14 +1,14 @@
 import { Container, Grid } from "@mui/material";
-import Link from "next/link";
-import React, { useCallback } from "react";
-import { Title } from "../../../components";
-import { IPage, responseSchema } from "../../../interface";
+import { Title } from "components";
+import { IPage, responseSchema } from "interface";
 import {
   PRODUCT_CATEGORIES_ITEMS,
   PRODUCT_DETAIL_ITEMS,
   PRODUCT_LISTING_ITEMS,
-} from "../../../interface/responseSchema/product";
-import ROUTES from "../../../routes";
+} from "interface/responseSchema/product";
+import Link from "next/link";
+import React, { useCallback } from "react";
+import ROUTES from "routes";
 
 export type ProductProps = IPage<
   [

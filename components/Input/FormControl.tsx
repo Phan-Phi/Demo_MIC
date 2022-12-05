@@ -1,5 +1,5 @@
 import React from "react";
-import { Control, Controller, Path } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import {
   FormControl as MuiFormControl,
   InputBase,
@@ -20,9 +20,9 @@ export default function FormControl(props: Props) {
   return (
     <Controller
       control={control}
-      name="test"
+      name={name}
       render={({
-        field: { onChange, onBlur, value, name, ref },
+        field: { onChange, value, name },
         fieldState: { error },
         formState,
       }) => (
@@ -32,10 +32,10 @@ export default function FormControl(props: Props) {
           </InputLabel>
 
           <InputBase
+            name={name}
             value={value}
             onChange={onChange}
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Search Google Maps"
+            placeholder={placeholder}
             inputProps={{ "aria-label": "search google maps" }}
           />
         </MuiFormControl>

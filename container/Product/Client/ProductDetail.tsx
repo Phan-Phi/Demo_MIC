@@ -10,18 +10,18 @@ import {
 } from "@mui/material";
 import useSWR from "swr";
 
-import { Image, Title } from "../../../components";
-import RelatedProduct from "../../../components/RelatedProduct";
-import { IPage } from "../../../interface";
 import { useMeasure } from "react-use";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { transformUrl } from "../../../libs/transformUrl";
-import { PAGES_API, TYPE_PARAMS } from "../../../apis";
+
+import { transformUrl } from "libs/transformUrl";
 import { PRODUCT_DETAIL_ITEMS } from "interface/responseSchema/product";
-import FormControl from "components/Input/FormControl";
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import { IPage } from "interface";
+import RelatedProduct from "components/RelatedProduct";
+import { Image, Title } from "components";
 
 export type PropsProductDetail = IPage<[PRODUCT_DETAIL_ITEMS]>;
 
@@ -158,8 +158,6 @@ export default function ProductDetail(props: PropsProductDetail) {
           <Title title="Related Product" />
           <RelatedProduct data={relate} />
         </Grid>
-
-        <FormControl control={control} name="nhap ten" label="name" />
       </Grid>
     </Container>
   );

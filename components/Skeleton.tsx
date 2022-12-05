@@ -7,6 +7,7 @@ interface Props {
 
 export default function SkeletonItem(props: Props) {
   const { heightSize, widthSize } = props;
+
   return (
     <Box>
       <Skeleton variant="rectangular" width={widthSize} height={200} />

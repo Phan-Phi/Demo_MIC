@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { Image, Title } from "../../../components";
-import { HOME_PAGE_OUR_CATEGORIES, responseSchema } from "../../../interface";
 import { useMeasure } from "react-use";
 import Link from "next/link";
-import ROUTES from "../../../routes";
+import ROUTES from "routes";
+import { HOME_PAGE_OUR_CATEGORIES, responseSchema } from "interface";
+import { Image, Title } from "components";
 
 type Props = {
   data: responseSchema<HOME_PAGE_OUR_CATEGORIES>;

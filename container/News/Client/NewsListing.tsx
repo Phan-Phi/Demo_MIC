@@ -1,19 +1,15 @@
 import { Box, Container, Grid, Link, Stack } from "@mui/material";
-import { useRouter } from "next/router";
-import React, { useMemo } from "react";
-import useSWR from "swr";
-import { PAGES_API, TYPE_PARAMS } from "../../../apis";
-
-import { CardItem, Title } from "../../../components";
-import ButtonBase from "../../../components/Button/Button";
-
-import { IPage, responseSchema } from "../../../interface";
+import { CardItem, Title } from "components";
+import ButtonBase from "components/Button/Button";
 import {
+  IPage,
   NEW_DETAIL_ITEMS,
   NEW_LISTING_ITEMS,
-} from "../../../interface/responseSchema/news";
-import { transformUrl } from "../../../libs/transformUrl";
-import ROUTES from "../../../routes";
+  responseSchema,
+} from "interface";
+import { useRouter } from "next/router";
+import React, { useMemo } from "react";
+import ROUTES from "routes";
 
 export type NewsProps = IPage<
   [responseSchema<NEW_LISTING_ITEMS>, responseSchema<NEW_DETAIL_ITEMS>]

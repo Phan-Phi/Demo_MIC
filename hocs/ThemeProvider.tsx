@@ -134,12 +134,13 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          color: defaultTheme.palette.common.white,
+          color: defaultTheme.palette.primary.main,
           borderRadius: 90,
           padding: "1rem 1.5rem",
         },
         contained: {
           color: defaultTheme.palette.common.white,
+          backgroundColor: defaultTheme.palette.primary.main,
         },
         outlined: {
           color: defaultTheme.palette.primary.main,
@@ -149,32 +150,55 @@ const theme = createTheme({
       defaultProps: {},
     },
 
-    MuiInput: {
+    MuiFormControl: {
       styleOverrides: {
-        root: {
-          color: defaultTheme.palette.neutral.neutral4,
-          fontWeight: 500,
-          fontSize: "0.8rem",
-          borderRadius: 10,
-          padding: "0.7rem 1rem",
-          border: `0.2rem solid ${defaultTheme.palette.neutral.neutral6}`,
-          "& ::placeholder": {
-            color: defaultTheme.palette.neutral.neutral4,
-          },
-        },
+        root: {},
       },
-      defaultProps: {},
     },
+    // MuiInput: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: defaultTheme.palette.neutral.neutral4,
+    //       fontWeight: 500,
+    //       fontSize: "0.8rem",
+    //       borderRadius: 10,
+    //       padding: "0",
+    //       border: `0.2rem solid ${defaultTheme.palette.neutral.neutral6}`,
+    //       "& ::placeholder": {
+    //         color: defaultTheme.palette.neutral.neutral4,
+    //       },
+    //     },
+    //   },
+    //   defaultProps: {},
+    // },
 
     MuiFormLabel: {
       styleOverrides: {
         root: {
+          display: "block",
           textTransform: "uppercase",
           color: defaultTheme.palette.neutral.neutral5,
-          ...defaultTheme.typography.hairline2,
+          ...defaultTheme.typography.hairline1,
+          "& .MuiInputBase-input": {
+            padding: "0 !important",
+          },
         },
       },
-      defaultProps: {},
+    },
+
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          marginTop: "0.75rem",
+          border: `3px solid ${defaultTheme.palette.neutral.neutral6}`,
+          borderRadius: "0.6rem",
+          padding: "0.7rem 1rem",
+          ...defaultTheme.typography.caption,
+          "& ::placeholder": {
+            ...defaultTheme.typography.caption,
+          },
+        },
+      },
     },
 
     MuiTab: {

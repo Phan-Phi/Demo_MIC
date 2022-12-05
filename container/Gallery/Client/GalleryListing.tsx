@@ -1,12 +1,10 @@
 import { Container, Grid, Stack } from "@mui/material";
+import { CardItem, Title } from "components";
+import ButtonBase from "components/Button/Button";
+import { IPage, responseSchema } from "interface";
+import { GALLERY_DETAIL_ITEMS } from "interface/responseSchema/gallery";
 import Link from "next/link";
 import { useMemo } from "react";
-
-import { CardItem, Title } from "../../../components";
-import ButtonBase from "../../../components/Button/Button";
-
-import { IPage, responseSchema } from "../../../interface";
-import { GALLERY_DETAIL_ITEMS } from "../../../interface/responseSchema/gallery";
 
 import ROUTES from "../../../routes";
 

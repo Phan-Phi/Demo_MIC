@@ -1,10 +1,9 @@
 import { Grid } from "@mui/material";
+import { HOME_PAGE_NEW, responseSchema } from "interface";
 import Link from "next/link";
 import React from "react";
-import { Title } from "../../../components";
-import CardItem from "../../../components/Card/CardItem";
-import { HOME_PAGE_NEW, responseSchema } from "../../../interface";
-import ROUTES from "../../../routes";
+import ROUTES from "routes";
+import { CardItem, Title } from "../../../components";
 
 type Props = {
   data: responseSchema<HOME_PAGE_NEW>;
