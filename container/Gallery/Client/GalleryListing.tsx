@@ -14,7 +14,6 @@ export type GalleryProps = IPage<
 
 export default function GalleryListing(props: GalleryProps) {
   const { initData } = props;
-  return;
   const dataListing = initData[0].items;
   const dataCatergories = initData[1].items;
 

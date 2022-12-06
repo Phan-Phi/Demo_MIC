@@ -155,22 +155,6 @@ const theme = createTheme({
         root: {},
       },
     },
-    // MuiInput: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: defaultTheme.palette.neutral.neutral4,
-    //       fontWeight: 500,
-    //       fontSize: "0.8rem",
-    //       borderRadius: 10,
-    //       padding: "0",
-    //       border: `0.2rem solid ${defaultTheme.palette.neutral.neutral6}`,
-    //       "& ::placeholder": {
-    //         color: defaultTheme.palette.neutral.neutral4,
-    //       },
-    //     },
-    //   },
-    //   defaultProps: {},
-    // },
 
     MuiFormLabel: {
       styleOverrides: {

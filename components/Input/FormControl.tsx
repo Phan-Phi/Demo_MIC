@@ -2,6 +2,7 @@ import React from "react";
 import { Control, Controller } from "react-hook-form";
 import {
   FormControl as MuiFormControl,
+  FormLabel,
   InputBase,
   InputLabel,
 } from "@mui/material";
@@ -27,9 +28,7 @@ export default function FormControl(props: Props) {
         formState,
       }) => (
         <MuiFormControl fullWidth>
-          <InputLabel shrink htmlFor="bootstrap-input">
-            {label}
-          </InputLabel>
+          <FormLabel>{label}</FormLabel>
 
           <InputBase
             name={name}

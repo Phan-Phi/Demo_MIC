@@ -5,7 +5,7 @@ import React, { useMemo } from "react";
 type TabsProps = {
   data: PRODUCT_CATEGORIES_ITEMS[];
   currentTabs: number;
-  onChange: () => void;
+  onChange: (event: React.SyntheticEvent, newValue: number) => void;
 };
 
 export default function Tabs(props: TabsProps) {

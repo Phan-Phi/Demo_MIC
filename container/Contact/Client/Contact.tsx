@@ -13,8 +13,11 @@ import Location from "components/Icon/Location";
 import Mail from "components/Icon/Mail";
 import Phone from "components/Icon/Phone";
 import FormControl from "components/Input/FormControl";
+import FormControlForPhoneNumber from "components/Input/PhoneNumber.";
+import PhoneNumber from "components/Input/PhoneNumber.";
 import { IPage, responseSchema } from "interface";
 import { ITEM_CONTACT, ITEM_SUBMIT } from "interface/responseSchema/contact";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 export type ContactProps = IPage<[responseSchema<ITEM_CONTACT>]>;
@@ -26,9 +29,9 @@ export default function Contact(props: ContactProps) {
   const theme = useTheme();
   const { handleSubmit, control } = useForm();
 
-  const onSubmit = (data: ITEM_SUBMIT) => {
+  const onSubmit = useCallback((data: ITEM_SUBMIT) => {
     console.log("🚀 ~ file: Contact.tsx:10 ~ onSubmit ~ data", data);
-  };
+  }, []);
 
   return (
     <Container>
@@ -107,18 +110,18 @@ export default function Contact(props: ContactProps) {
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <FormControl
+                <PhoneNumber
                   control={control}
-                  name="name"
-                  label="Name"
-                  placeholder="Nhập tên"
+                  name="phone_number"
+                  label="Phone"
+                  placeholder="Nhập SDT"
                 />
               </Grid>
 
               <Grid item xs={12} md={6}>
                 <FormControl
                   control={control}
-                  name="name"
+                  name="email"
                   label="Name"
                   placeholder="Nhập tên"
                 />

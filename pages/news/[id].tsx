@@ -18,7 +18,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         fields: "*",
       }),
     ];
-    console.log("🚀 ~ file: [id].tsx:19 ~ getServerSideProps ~ urls", urls);
 
     const { resList, fallback } = await prefetchData(urls, { locale });
 
