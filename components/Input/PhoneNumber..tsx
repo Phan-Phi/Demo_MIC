@@ -10,11 +10,14 @@ import {
 import PhoneInput from "react-phone-number-input/input";
 
 type Props = {
-  name: string;
+  name: "name" | "message" | "phone_number" | "email";
   fullWidth?: boolean;
   placeholder?: string;
   label: string;
-  control: Control;
+  control: Control<
+    { name: string; phone_number: string; email: string; message: string },
+    any
+  >;
 };
 
 export default function PhoneNumber(props: Props) {

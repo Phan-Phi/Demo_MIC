@@ -1,24 +1,21 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  styled,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { Map, Title } from "components";
 import Location from "components/Icon/Location";
 import Mail from "components/Icon/Mail";
 import Phone from "components/Icon/Phone";
 import FormControl from "components/Input/FormControl";
-import FormControlForPhoneNumber from "components/Input/PhoneNumber.";
 import PhoneNumber from "components/Input/PhoneNumber.";
 import { IPage, responseSchema } from "interface";
 import { ITEM_CONTACT, ITEM_SUBMIT } from "interface/responseSchema/contact";
 import { useCallback } from "react";
+
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { transformUrl } from "libs/transformUrl";
+import { SUBMISSIONS_API } from "apis";
+import axios from "../../../axios.config";
+
+import { defaultContact, schemaContact } from "yups/Contact";
 
 export type ContactProps = IPage<[responseSchema<ITEM_CONTACT>]>;
 
@@ -26,11 +23,26 @@ export default function Contact(props: ContactProps) {
   const { initData } = props;
   const data = initData[0].items[0];
 
-  const theme = useTheme();
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, reset } = useForm({
+    resolver: schemaContact(),
+    defaultValues: defaultContact(),
+  });
 
-  const onSubmit = useCallback((data: ITEM_SUBMIT) => {
-    console.log("🚀 ~ file: Contact.tsx:10 ~ onSubmit ~ data", data);
+  const onSubmit = useCallback(async (data: ITEM_SUBMIT) => {
+    try {
+      const url = transformUrl(SUBMISSIONS_API);
+
+      const aa = await axios.post(SUBMISSIONS_API, data, {
+        headers: {
+          Authorization: process.env.NEXT_PUBLIC_API_KEY,
+        },
+      });
+
+      console.log("🚀 ~ file: Contact.tsx:52 ~ onSubmit ~ aa", aa);
+      reset(defaultContact);
+    } catch (err) {
+      console.log("🚀 ~ file: Contact.tsx:40 ~ onSubmit ~ err", err);
+    }
   }, []);
 
   return (
@@ -130,7 +142,7 @@ export default function Contact(props: ContactProps) {
               <Grid item xs={12} md={12}>
                 <FormControl
                   control={control}
-                  name="name"
+                  name="message"
                   label="Name"
                   placeholder="Nhập tên"
                 />

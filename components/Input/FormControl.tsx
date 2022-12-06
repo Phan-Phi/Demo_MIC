@@ -1,5 +1,5 @@
 import React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, FieldValues } from "react-hook-form";
 import {
   FormControl as MuiFormControl,
   FormLabel,
@@ -8,11 +8,14 @@ import {
 } from "@mui/material";
 
 type Props = {
-  name: string;
+  name: "name" | "message" | "phone_number" | "email";
   fullWidth?: boolean;
   placeholder?: string;
   label: string;
-  control: Control;
+  control: Control<
+    { name: string; phone_number: string; email: string; message: string },
+    any
+  >;
 };
 
 export default function FormControl(props: Props) {
@@ -22,23 +25,21 @@ export default function FormControl(props: Props) {
     <Controller
       control={control}
       name={name}
-      render={({
-        field: { onChange, value, name },
-        fieldState: { error },
-        formState,
-      }) => (
-        <MuiFormControl fullWidth>
-          <FormLabel>{label}</FormLabel>
+      render={({ field: { onChange, value, name }, fieldState: { error } }) => {
+        return (
+          <MuiFormControl fullWidth>
+            <FormLabel>{label}</FormLabel>
 
-          <InputBase
-            name={name}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            inputProps={{ "aria-label": "search google maps" }}
-          />
-        </MuiFormControl>
-      )}
+            <InputBase
+              name={name}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              inputProps={{ "aria-label": "search google maps" }}
+            />
+          </MuiFormControl>
+        );
+      }}
     />
   );
 }
