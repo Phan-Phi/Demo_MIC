@@ -1,6 +1,5 @@
-import { Box, Container, Grid, Link, Stack } from "@mui/material";
+import { Button, Container, Grid, Link, Stack } from "@mui/material";
 import { CardItem, Title } from "components";
-import ButtonBase from "components/Button/Button";
 import {
   IPage,
   NEW_DETAIL_ITEMS,
@@ -31,7 +30,7 @@ export default function NewsListing(props: NewsProps) {
   const renderNewsCategories = useMemo(() => {
     return dataCategories.map((el: NEW_DETAIL_ITEMS, idx) => {
       return (
-        <Grid item xs={12} md={4} key={idx}>
+        <Grid item xs={12} sm={6} md={4} key={idx}>
           <Link
             href={`/${ROUTES.news}/${el.id}`}
             style={{ textDecoration: "none" }}
@@ -55,8 +54,8 @@ export default function NewsListing(props: NewsProps) {
             {renderNewsCategories}
           </Grid>
 
-          <Stack alignItems="center">
-            <ButtonBase />
+          <Stack alignItems="center" marginTop="2rem">
+            <Button variant="contained">Xem Thêm</Button>
           </Stack>
         </Grid>
       </Grid>

@@ -5,17 +5,22 @@ import {
   FormLabel,
   InputBase,
   InputProps,
-  Typography,
 } from "@mui/material";
 import PhoneInput from "react-phone-number-input/input";
 
 type Props = {
-  name: "name" | "message" | "phone_number" | "email";
+  name: "phone_number";
   fullWidth?: boolean;
   placeholder?: string;
   label: string;
   control: Control<
-    { name: string; phone_number: string; email: string; message: string },
+    {
+      name: string;
+      phone_number: string;
+      email: string;
+      message: string;
+      bank: string;
+    },
     any
   >;
 };
@@ -32,13 +37,6 @@ export default function PhoneNumber(props: Props) {
           <MuiFormControl fullWidth>
             <FormLabel>{label}</FormLabel>
 
-            {/* <InputBase
-          name={name}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          inputProps={{ "aria-label": "search google maps" }}
-            /> */}
             <PhoneInput
               inputComponent={FancyButton}
               country="VN"

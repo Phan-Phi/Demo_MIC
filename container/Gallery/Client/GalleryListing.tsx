@@ -1,6 +1,5 @@
-import { Container, Grid, Stack } from "@mui/material";
+import { Button, Container, Grid, Stack, useTheme } from "@mui/material";
 import { CardItem, Title } from "components";
-import ButtonBase from "components/Button/Button";
 import { IPage, responseSchema } from "interface";
 import { GALLERY_DETAIL_ITEMS } from "interface/responseSchema/gallery";
 import Link from "next/link";
@@ -17,10 +16,12 @@ export default function GalleryListing(props: GalleryProps) {
   const dataListing = initData[0].items;
   const dataCatergories = initData[1].items;
 
+  const theme = useTheme();
+
   const renderGalleryCategories = useMemo(() => {
     return dataCatergories.map((el, idx) => {
       return (
-        <Grid item xs={12} md={4} key={idx}>
+        <Grid item xs={12} sm={6} md={4} key={idx}>
           <Link
             href={`/${ROUTES.gallery}/${el.id}`}
             style={{ textDecoration: "none" }}
@@ -44,8 +45,8 @@ export default function GalleryListing(props: GalleryProps) {
             {renderGalleryCategories}
           </Grid>
 
-          <Stack>
-            <ButtonBase />
+          <Stack alignItems="center" marginTop="2rem">
+            <Button variant="contained">Xem Thêm</Button>
           </Stack>
         </Grid>
       </Grid>

@@ -30,7 +30,6 @@ export default function Carousel({ data }: Props) {
     <Box
       marginBottom="3rem"
       ref={ref}
-      className="asasasasas"
       sx={{ ".slick-arrow": { display: "none !important" } }}
     >
       <Slider {...settings}>

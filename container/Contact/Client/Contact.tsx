@@ -1,4 +1,12 @@
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Map, Title } from "components";
 import Location from "components/Icon/Location";
 import Mail from "components/Icon/Mail";
@@ -10,12 +18,12 @@ import { ITEM_CONTACT, ITEM_SUBMIT } from "interface/responseSchema/contact";
 import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { transformUrl } from "libs/transformUrl";
 import { SUBMISSIONS_API } from "apis";
 import axios from "../../../axios.config";
 
 import { defaultContact, schemaContact } from "yups/Contact";
+import FormNumber from "components/Input/FormNumber";
+import { useMedia } from "hook/useMedia";
 
 export type ContactProps = IPage<[responseSchema<ITEM_CONTACT>]>;
 
@@ -23,6 +31,8 @@ export default function Contact(props: ContactProps) {
   const { initData } = props;
   const data = initData[0].items[0];
 
+  const theme = useTheme();
+  const { isSmDown } = useMedia();
   const { handleSubmit, control, reset } = useForm({
     resolver: schemaContact(),
     defaultValues: defaultContact(),
@@ -30,15 +40,12 @@ export default function Contact(props: ContactProps) {
 
   const onSubmit = useCallback(async (data: ITEM_SUBMIT) => {
     try {
-      const url = transformUrl(SUBMISSIONS_API);
-
       const aa = await axios.post(SUBMISSIONS_API, data, {
         headers: {
           Authorization: process.env.NEXT_PUBLIC_API_KEY,
         },
       });
 
-      console.log("🚀 ~ file: Contact.tsx:52 ~ onSubmit ~ aa", aa);
       reset(defaultContact);
     } catch (err) {
       console.log("🚀 ~ file: Contact.tsx:40 ~ onSubmit ~ err", err);
@@ -47,20 +54,26 @@ export default function Contact(props: ContactProps) {
 
   return (
     <Container>
-      <Grid container spacing={4} margin="3rem 0">
+      <Grid container rowSpacing={4} margin="3rem 0">
         <Grid item xs={12}>
           <Title title={data.title} />
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Grid container>
+          <Grid
+            container
+            sx={{
+              [theme.breakpoints.down("sm")]: {
+                display: "none",
+              },
+            }}
+          >
             <Grid item xs={12}>
               <Box
                 sx={{
                   backgroundColor: "#F4F5F6",
                   padding: "0.7rem",
                   borderRadius: "1rem",
-                  "& iframe": { borderRadius: "1rem" },
                 }}
               >
                 <Map />
@@ -107,7 +120,7 @@ export default function Contact(props: ContactProps) {
 
         <Grid item xs={12} md={6}>
           <Box component="form">
-            <Grid container spacing={4}>
+            <Grid container rowSpacing={3}>
               <Grid item xs={12}>
                 <Typography variant="body2Bold">{data.sub_title}</Typography>
               </Grid>
@@ -134,7 +147,7 @@ export default function Contact(props: ContactProps) {
                 <FormControl
                   control={control}
                   name="email"
-                  label="Name"
+                  label="Email"
                   placeholder="Nhập tên"
                 />
               </Grid>
@@ -145,17 +158,37 @@ export default function Contact(props: ContactProps) {
                   name="message"
                   label="Name"
                   placeholder="Nhập tên"
+                  InputProps={{
+                    multiline: true,
+                    rows: 8,
+                    sx: {
+                      padding: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={12}>
+                <FormNumber
+                  control={control}
+                  name="bank"
+                  label="Bank Number"
+                  placeholder="Nhập Bank"
                 />
               </Grid>
             </Grid>
 
-            <Button
-              variant="contained"
-              type="submit"
-              onClick={handleSubmit(onSubmit)}
+            <Stack
+              alignItems={isSmDown ? "center" : "flex-end"}
+              marginTop="2rem"
             >
-              Submit
-            </Button>
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={handleSubmit(onSubmit)}
+              >
+                Submit
+              </Button>
+            </Stack>
           </Box>
         </Grid>
       </Grid>

@@ -1,12 +1,30 @@
-import React, { createContext } from "react";
 import useSWR from "swr";
+import React, { createContext, useMemo } from "react";
+import { SETTING_API } from "apis";
+import { SETTING_ITEM } from "interface";
 
-const SettingContext = createContext({});
+type Props = {
+  children: React.ReactNode;
+};
 
-export default function Settings({ children }: { children: React.ReactNode }) {
-  const { data } = useSWR();
+export const SettingContext = createContext({} as SETTING_ITEM);
+
+const Setting = ({ children }: Props) => {
+  const { data } = useSWR(SETTING_API, {
+    refreshInterval: 600 * 1000,
+  });
+
+  const memoData = useMemo(() => {
+    if (data == undefined) return {} as SETTING_ITEM;
+
+    return data;
+  }, [data]);
 
   return (
-    <SettingContext.Provider value={"sdas"}>{children}</SettingContext.Provider>
+    <SettingContext.Provider value={memoData}>
+      {children}
+    </SettingContext.Provider>
   );
-}
+};
+
+export default Setting;

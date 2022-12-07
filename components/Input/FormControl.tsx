@@ -4,22 +4,30 @@ import {
   FormControl as MuiFormControl,
   FormLabel,
   InputBase,
+  InputProps,
   InputLabel,
 } from "@mui/material";
 
 type Props = {
   name: "name" | "message" | "phone_number" | "email";
-  fullWidth?: boolean;
   placeholder?: string;
   label: string;
   control: Control<
-    { name: string; phone_number: string; email: string; message: string },
+    {
+      name: string;
+      phone_number: string;
+      email: string;
+      message: string;
+      bank: string;
+    },
     any
   >;
+
+  InputProps?: InputProps;
 };
 
 export default function FormControl(props: Props) {
-  const { name, label, placeholder, fullWidth, control } = props;
+  const { name, label, placeholder, control, InputProps } = props;
 
   return (
     <Controller
@@ -35,7 +43,7 @@ export default function FormControl(props: Props) {
               value={value}
               onChange={onChange}
               placeholder={placeholder}
-              inputProps={{ "aria-label": "search google maps" }}
+              {...InputProps}
             />
           </MuiFormControl>
         );

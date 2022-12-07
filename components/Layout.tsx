@@ -8,6 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <Box>
       <Header />
       <Box>{children}</Box>
+
       <Footer />
     </Box>
   );

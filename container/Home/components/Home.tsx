@@ -1,11 +1,4 @@
-import {
-  Button,
-  Container,
-  FormLabel,
-  Grid,
-  InputBase,
-  Stack,
-} from "@mui/material";
+import { Button, Container, Grid, Stack } from "@mui/material";
 
 import OurCategories from "../Client/OurCategories";
 import HomeNews from "../Client/HomeNews";
@@ -45,8 +38,6 @@ export default function Home(props: HomeProps) {
             {/* <ButtonBase /> */}
             <Stack alignItems="center" marginTop="2rem">
               <Button variant="contained">xem them</Button>
-              <FormLabel>label</FormLabel>
-              <InputBase placeholder="Nhap Vo" />
             </Stack>
           </Grid>
         </Grid>

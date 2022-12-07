@@ -10,6 +10,7 @@ export type PropsDefaultValue = {
   email: string;
   phone_number: string;
   message: string;
+  bank: string;
 };
 
 // export const schemaContact = yup.object().shape({
@@ -39,6 +40,7 @@ export const schemaContact = () => {
       name: string().required(),
       message: string().required(),
       email: string().email().required(),
+      bank: string().required(),
       phone_number: string().test({
         test(value: string, ctx) {
           console.log("🚀 ~ file: Contact.tsx:31 ~ test ~ ctx", ctx);
@@ -64,5 +66,6 @@ export const defaultContact = () => {
     email: "phi@gmail.com",
     phone_number: "",
     message: "Hello",
+    bank: "123456789",
   };
 };
