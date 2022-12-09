@@ -2,7 +2,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Container, Divider, Grid } from "@mui/material";
+import { Container, Divider, Grid, Typography } from "@mui/material";
 
 import { Title } from "components";
 import CardProduct from "components/Card/CardProduct";
@@ -97,7 +97,7 @@ export default function Product(props: ProductProps) {
   }, [currentTabs, dataCategories]);
 
   const renderTabPanel = useMemo(() => {
-    if (!dataTabpanel) {
+    if (dataTabpanel == undefined) {
       return null;
     }
     return (

@@ -3,7 +3,8 @@ import { Box, Typography, useTheme, styled } from "@mui/material";
 
 import { Fragment } from "react";
 import { PRODUCT_DETAIL_ITEMS } from "../../interface/responseSchema/product";
-import Image from "../Image";
+import Image from "next/image";
+// import Image from "../Image";
 
 type Props = {
   data: PRODUCT_DETAIL_ITEMS;
@@ -21,11 +22,18 @@ export default function CardProduct(props: Props) {
     <Fragment>
       <Box ref={ref} height={width}>
         {thumbnail && (
+          // <Image
+          //   src={thumbnail}
+          //   width="100%"
+          //   height={width}
+          //   alt={title}
+          //   style={{ objectFit: "cover", borderRadius: "0.5rem" }}
+          // />
+
           <Image
             src={thumbnail}
-            width="100%"
+            width={width}
             height={width}
-            alt={title}
             style={{ objectFit: "cover", borderRadius: "0.5rem" }}
           />
         )}

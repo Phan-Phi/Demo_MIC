@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import React from "react";
-import Slider from "react-slick";
 import { useMeasure } from "react-use";
 
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { HOME_PAGE, responseSchema } from "interface";
 import { Image } from "components";
 
@@ -14,6 +14,7 @@ type Props = {
 
 export default function Carousel({ data }: Props) {
   const [ref, { width }] = useMeasure();
+  const [refs, { width: widths }] = useMeasure();
 
   const { items } = data;
   const { banners } = items[0];
@@ -25,7 +26,6 @@ export default function Carousel({ data }: Props) {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
   return (
     <Box
       marginBottom="3rem"
@@ -36,7 +36,7 @@ export default function Carousel({ data }: Props) {
         {banners &&
           banners.map((el, idx) => {
             return (
-              <Box height={(width * 9) / 16} key={idx}>
+              <Box height={width / (1440 / 516)} key={idx}>
                 <Image
                   src={el.value.icon}
                   // src={"/img/Rectangle 3.png"}

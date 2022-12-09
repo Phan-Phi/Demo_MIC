@@ -4,6 +4,7 @@ import Link from "next/link";
 import ROUTES from "routes";
 import { HOME_PAGE_OUR_CATEGORIES, responseSchema } from "interface";
 import { Image, Title } from "components";
+import TitleLine from "components/TitleLine/TitleLine";
 
 type Props = {
   data: responseSchema<HOME_PAGE_OUR_CATEGORIES>;
@@ -14,11 +15,12 @@ type PropsCategories = {
 
 export default function OurCategories(props: Props) {
   const { data } = props;
+  console.log("🚀 ~ file: OurCategories.tsx:17 ~ OurCategories ~ data", data);
 
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Title title="Our Categories" />
+        <TitleLine title="Our Categories" />
       </Grid>
       <Grid container spacing={4}>
         {data &&

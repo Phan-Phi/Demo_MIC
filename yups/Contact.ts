@@ -43,9 +43,6 @@ export const schemaContact = () => {
       bank: string().required(),
       phone_number: string().test({
         test(value: string, ctx) {
-          console.log("🚀 ~ file: Contact.tsx:31 ~ test ~ ctx", ctx);
-          console.log("🚀 ~ file: Contact.tsx:31 ~ test ~ value", value);
-
           if (isValidPhoneNumber(value) === false) {
             console.log("sdt co do dai or chu so ko dung quoc gia");
           }

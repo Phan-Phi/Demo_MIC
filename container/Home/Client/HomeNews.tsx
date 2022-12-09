@@ -1,9 +1,10 @@
 import { Grid } from "@mui/material";
+import TitleLine from "components/TitleLine/TitleLine";
 import { HOME_PAGE_NEW, responseSchema } from "interface";
 import Link from "next/link";
 import React from "react";
 import ROUTES from "routes";
-import { CardItem, Title } from "../../../components";
+import { CardItem } from "../../../components";
 
 type Props = {
   data: responseSchema<HOME_PAGE_NEW>;
@@ -15,7 +16,7 @@ export default function HomeNews(props: Props) {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Title title="News" />
+        <TitleLine title="News" />
       </Grid>
 
       <Grid container spacing={4}>

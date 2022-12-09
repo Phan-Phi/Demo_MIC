@@ -35,7 +35,6 @@ export default function Home(props: HomeProps) {
 
           <Grid item xs={12} marginBottom="3rem">
             <HomeNews data={initData[2]} />
-            {/* <ButtonBase /> */}
             <Stack alignItems="center" marginTop="2rem">
               <Button variant="contained">xem them</Button>
             </Stack>

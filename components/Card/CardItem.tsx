@@ -7,6 +7,8 @@ import { format, parseISO } from "date-fns";
 import Image from "../Image";
 import SkeletonItem from "../Skeleton";
 import { MetaItem } from "../../interface/responseSchema";
+import { RATIO } from "constant";
+import { useMeasure } from "react-use";
 
 interface CardProps {
   id: number;
@@ -26,7 +28,7 @@ type Props = {
 
 export default function CardItem(props: Props) {
   const { data } = props;
-
+  const [ref, { width }] = useMeasure();
   const theme = useTheme();
   const pathname: string | null = usePathname();
 
@@ -37,14 +39,14 @@ export default function CardItem(props: Props) {
   //   return <SkeletonItem widthSize={widthSize} heightSize={heightSize} />;
   // }
   return (
-    <Box sx={{ cursor: "pointer" }}>
+    <Box sx={{ cursor: "pointer" }} ref={ref}>
       <Box>
         {data.thumbnail && (
           <Image
             src={data.thumbnail}
-            // src={"/img/Rectangle 3.png"}
             width="100%"
-            height={250}
+            // height={250}
+            height={width * RATIO.GALLERY_RATIO_IMAGE}
             alt="Logo"
             style={{ objectFit: "cover", borderRadius: "0.6rem" }}
           />

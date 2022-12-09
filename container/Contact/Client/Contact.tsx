@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Map, Title } from "components";
+import { Map } from "components";
 import Location from "components/Icon/Location";
 import Mail from "components/Icon/Mail";
 import Phone from "components/Icon/Phone";
@@ -24,6 +24,9 @@ import axios from "../../../axios.config";
 import { defaultContact, schemaContact } from "yups/Contact";
 import FormNumber from "components/Input/FormNumber";
 import { useMedia } from "hook/useMedia";
+import TitleLine from "components/TitleLine/TitleLine";
+import { NotiStack } from "hook/notiStack";
+import { useSnackbar } from "notistack";
 
 export type ContactProps = IPage<[responseSchema<ITEM_CONTACT>]>;
 
@@ -33,14 +36,18 @@ export default function Contact(props: ContactProps) {
 
   const theme = useTheme();
   const { isSmDown } = useMedia();
+
   const { handleSubmit, control, reset } = useForm({
     resolver: schemaContact(),
     defaultValues: defaultContact(),
   });
 
+  const { snackbarId } = NotiStack();
+
   const onSubmit = useCallback(async (data: ITEM_SUBMIT) => {
     try {
-      const aa = await axios.post(SUBMISSIONS_API, data, {
+      snackbarId("sadasd");
+      await axios.post(SUBMISSIONS_API, data, {
         headers: {
           Authorization: process.env.NEXT_PUBLIC_API_KEY,
         },
@@ -54,9 +61,9 @@ export default function Contact(props: ContactProps) {
 
   return (
     <Container>
-      <Grid container rowSpacing={4} margin="3rem 0">
+      <Grid container spacing={isSmDown ? 0 : 3} margin="3rem 0" width="100%">
         <Grid item xs={12}>
-          <Title title={data.title} />
+          <TitleLine title={data.title} />
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -134,22 +141,26 @@ export default function Contact(props: ContactProps) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
-                <PhoneNumber
-                  control={control}
-                  name="phone_number"
-                  label="Phone"
-                  placeholder="Nhập SDT"
-                />
-              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <PhoneNumber
+                      control={control}
+                      name="phone_number"
+                      label="Phone"
+                      placeholder="Nhập SDT"
+                    />
+                  </Grid>
 
-              <Grid item xs={12} md={6}>
-                <FormControl
-                  control={control}
-                  name="email"
-                  label="Email"
-                  placeholder="Nhập tên"
-                />
+                  <Grid item xs={12} md={6}>
+                    <FormControl
+                      control={control}
+                      name="email"
+                      label="Email"
+                      placeholder="Nhập tên"
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
 
               <Grid item xs={12} md={12}>

@@ -1,9 +1,11 @@
-import { Button, Container, Grid, Stack, useTheme } from "@mui/material";
-import { CardItem, Title } from "components";
+import { useMemo } from "react";
+import Link from "next/link";
+import { Button, Container, Grid, Stack } from "@mui/material";
+
+import { CardItem } from "components";
+import TitleLine from "components/TitleLine/TitleLine";
 import { IPage, responseSchema } from "interface";
 import { GALLERY_DETAIL_ITEMS } from "interface/responseSchema/gallery";
-import Link from "next/link";
-import { useMemo } from "react";
 
 import ROUTES from "../../../routes";
 
@@ -15,8 +17,6 @@ export default function GalleryListing(props: GalleryProps) {
   const { initData } = props;
   const dataListing = initData[0].items;
   const dataCatergories = initData[1].items;
-
-  const theme = useTheme();
 
   const renderGalleryCategories = useMemo(() => {
     return dataCatergories.map((el, idx) => {
@@ -37,7 +37,7 @@ export default function GalleryListing(props: GalleryProps) {
     <Container>
       <Grid container marginBottom="4rem">
         <Grid item xs={12}>
-          <Title title={dataListing[0].title} />
+          <TitleLine title={dataListing[0].title} />
         </Grid>
 
         <Grid item xs={12}>

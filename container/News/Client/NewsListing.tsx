@@ -1,13 +1,14 @@
+import React, { useMemo } from "react";
 import { Button, Container, Grid, Link, Stack } from "@mui/material";
-import { CardItem, Title } from "components";
+
+import { CardItem } from "components";
+import TitleLine from "components/TitleLine/TitleLine";
 import {
   IPage,
   NEW_DETAIL_ITEMS,
   NEW_LISTING_ITEMS,
   responseSchema,
 } from "interface";
-import { useRouter } from "next/router";
-import React, { useMemo } from "react";
 import ROUTES from "routes";
 
 export type NewsProps = IPage<
@@ -15,16 +16,8 @@ export type NewsProps = IPage<
 >;
 
 export default function NewsListing(props: NewsProps) {
-  const router = useRouter();
   const { initData } = props;
   const dataListing = initData[0].items;
-  // const { data } = useSWR(
-  //   transformUrl(PAGES_API, {
-  //     fields: "*",
-  //     type: TYPE_PARAMS["product.ProductCategoryPage"],
-  //   })
-  // );
-  // console.log("🚀 ~ file: NewsListing.tsx:27 ~ NewsListing ~ data", data);
   const dataCategories = initData[1].items;
 
   const renderNewsCategories = useMemo(() => {
@@ -46,7 +39,7 @@ export default function NewsListing(props: NewsProps) {
     <Container>
       <Grid container marginBottom="5rem">
         <Grid item xs={12} marginBottom="2rem">
-          <Title title={dataListing[0].title} />
+          <TitleLine title={dataListing[0].title} />
         </Grid>
 
         <Grid item xs={12}>

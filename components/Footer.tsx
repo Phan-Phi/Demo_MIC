@@ -21,7 +21,7 @@ import Map from "./Map";
 
 export default function Footer() {
   const theme = useTheme();
-  const { isSmDown } = useMedia();
+  const { isSmDown, isMdUp } = useMedia();
   const setting = useSetting();
 
   const { logo, email, hotline, address, social_icons } = setting;
@@ -35,14 +35,12 @@ export default function Footer() {
       const { block_type, value } = el;
 
       return (
-        <Grid item xs={4} key={idx}>
-          <Image
-            src={value.icon}
-            alt="social_icons"
-            width="100%"
-            height="100px"
-          />
-        </Grid>
+        <Image
+          src={value.icon}
+          alt="social_icons"
+          width={isSmDown ? "30px" : "30px"}
+          height={isSmDown ? "60px" : "30px"}
+        />
       );
     });
   }, [social_icons]);
@@ -147,6 +145,13 @@ export default function Footer() {
                   )}
                 </Stack>
               </Grid>
+              {isMdUp && (
+                <Grid item xs={12}>
+                  <Stack direction="row" spacing={2}>
+                    {renderSocialIcon}
+                  </Stack>
+                </Grid>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -158,9 +163,14 @@ export default function Footer() {
 
         {isSmDown && (
           <Grid item xs={12}>
-            <Grid container width="40%" margin="0 auto" columnSpacing={2}>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              spacing={2}
+              margin="0.5rem 0"
+            >
               {renderSocialIcon}
-            </Grid>
+            </Stack>
           </Grid>
         )}
 

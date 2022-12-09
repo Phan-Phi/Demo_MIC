@@ -6,6 +6,7 @@ import {
   InputBase,
   InputProps,
   InputLabel,
+  FormHelperText,
 } from "@mui/material";
 
 type Props = {
@@ -34,6 +35,10 @@ export default function FormControl(props: Props) {
       control={control}
       name={name}
       render={({ field: { onChange, value, name }, fieldState: { error } }) => {
+        console.log(
+          "🚀 ~ file: FormControl.tsx:58 ~ FormControl ~ error",
+          error
+        );
         return (
           <MuiFormControl fullWidth>
             <FormLabel>{label}</FormLabel>
@@ -45,6 +50,9 @@ export default function FormControl(props: Props) {
               placeholder={placeholder}
               {...InputProps}
             />
+            <FormHelperText id="my-helper-text">
+              We'll never share your email.
+            </FormHelperText>
           </MuiFormControl>
         );
       }}

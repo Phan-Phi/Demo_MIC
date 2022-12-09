@@ -35,3 +35,7 @@ export const ROUTES_HEADER = [
     path: "/contact",
   },
 ];
+
+export const RATIO = {
+  GALLERY_RATIO_IMAGE: 4 / 6,
+};
