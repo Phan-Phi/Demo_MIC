@@ -1,8 +1,258 @@
-import { Box, useTheme } from "@mui/material";
-import { customFont } from "../libs/customFont";
+import { useCallback, useMemo, useState } from "react";
+
+import {
+  Box,
+  Container,
+  Dialog,
+  OutlinedInput,
+  Popover,
+  Stack,
+  styled,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import { Image } from "components";
+import { useSetting } from "hook/useContext";
+import { useMedia } from "hook/useMedia";
+
+import {
+  usePopupState,
+  bindTrigger,
+  bindPopover,
+  bindMenu,
+  bindHover,
+} from "material-ui-popup-state/hooks";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import useSWR from "swr";
+import { transformUrl } from "libs/transformUrl";
+import { useRouter } from "next/router";
+
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import Link from "next/link";
+import { PRODUCT_CATEGORIES_ITEMS } from "interface/responseSchema/product";
+
+const TitleMenu = [
+  { id: 0, name: "Trang chủ", link: "/home" },
+  { id: 1, name: "Về chúng tôi", link: "/about" },
+  { id: 2, name: "Sản phẩm", link: "/product" },
+  { id: 3, name: "Tin tức", link: "/gallery" },
+  { id: 4, name: "Thư viện", link: "/news" },
+  { id: 5, name: "Liên hệ", link: "/contact" },
+];
 
 export default function Header() {
-  const theme = useTheme();
+  const router = useRouter();
+  const { isMdUp, isMdDown } = useMedia();
 
-  return <Box sx={{ backgroundColor: theme.palette.primary.main }}>Header</Box>;
+  const [open, setOpen] = useState(false);
+  const popupState = usePopupState({
+    variant: "popover",
+    popupId: "demoPopover",
+  });
+
+  const { data } = useSWR(
+    transformUrl(PAGES_API, {
+      locale: router.locale,
+      type: TYPE_PARAMS["product.ProductCategoryPage"],
+      fields: "*",
+    })
+  );
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const renderNav = useMemo(() => {
+    return (
+      <>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          margin="1.5rem 0"
+        >
+          <Box>
+            <Image alt="logo" width={100} height={80} src="/img/logo.png" />
+          </Box>
+          {isMdUp && (
+            <Stack direction="row" alignItems="center" spacing={3}>
+              {TitleMenu.map((el, idx) => {
+                if (el.name == "Sản phẩm") {
+                  return (
+                    <>
+                      <Link href={el.link} {...bindHover(popupState)}>
+                        <Stack direction="row" alignItems="center">
+                          <ItemMenu key={idx} variant="button2">
+                            {el.name}
+                          </ItemMenu>
+                          <ItemMenu key={idx} variant="button2">
+                            <ExpandMoreIcon />
+                          </ItemMenu>
+                        </Stack>
+                      </Link>
+
+                      <Menu {...bindMenu(popupState)}>
+                        {data &&
+                          data.items.map(
+                            (el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
+                              return (
+                                <MenuItem key={idx} onClick={popupState.close}>
+                                  <Typography variant="caption2">
+                                    {el.title}
+                                  </Typography>
+                                </MenuItem>
+                              );
+                            }
+                          )}
+                      </Menu>
+                    </>
+                  );
+                } else {
+                  return (
+                    <ItemMenu key={idx} variant="button2">
+                      <Link href={el.link}>{el.name}</Link>
+                    </ItemMenu>
+                  );
+                }
+              })}
+            </Stack>
+          )}
+
+          {isMdUp && (
+            <Stack direction="row" alignItems="center" spacing={2}>
+              {/* <OutlinedInput
+            id="outlined-adornment-weight"
+            placeholder="tìm kiếm..."
+            endAdornment={<SearchIcon />}
+            aria-describedby="outlined-weight-helper-text"
+            inputProps={{
+              "aria-label": "weight",
+            }}
+          /> */}
+              <Search />
+
+              <Image alt="logo" width={30} height={30} src="/img/vi 1.png" />
+            </Stack>
+          )}
+
+          {isMdDown && (
+            <Box onClick={handleClickOpen}>
+              <MenuIcon />
+            </Box>
+          )}
+        </Stack>
+
+        {isMdDown && <Search />}
+      </>
+    );
+  }, [isMdUp, isMdDown, popupState, data]);
+
+  const AppBar = useMemo(() => {
+    return (
+      <div>
+        <Dialog
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <Stack direction="column" spacing={14} padding="3rem 1.8rem">
+            <Stack direction="row" width="100%" justifyContent="space-between">
+              <Image alt="logo" width={100} height={80} src="/img/logo.png" />
+              <CloseIcon onClick={handleClose} />
+            </Stack>
+
+            <Stack direction="column" spacing={5}>
+              {TitleMenu.map((el, idx) => {
+                if (el.name == "Về chúng tôi") {
+                  return (
+                    <>
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        {...bindTrigger(popupState)}
+                      >
+                        <ItemMenu key={idx} variant="button2">
+                          {el.name}
+                        </ItemMenu>
+                        <ItemMenu key={idx} variant="button2">
+                          <ExpandMoreIcon />
+                        </ItemMenu>
+                      </Stack>
+
+                      <Popover
+                        {...bindPopover(popupState)}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "center",
+                        }}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "center",
+                        }}
+                      >
+                        <Typography>The content of the Popover.</Typography>
+                      </Popover>
+                    </>
+                  );
+                } else {
+                  return (
+                    <ItemMenu key={idx} variant="button2">
+                      {el.name}
+                    </ItemMenu>
+                  );
+                }
+              })}
+              <Image alt="logo" width={30} height={30} src="/img/vi 1.png" />
+            </Stack>
+          </Stack>
+        </Dialog>
+      </div>
+    );
+  }, [open]);
+
+  return (
+    <Container>
+      {renderNav}
+      {AppBar}
+    </Container>
+  );
 }
+
+const ItemMenu = styled(Typography)(({ theme }) => {
+  return {
+    color: theme.palette.common.black,
+    cursor: "pointer",
+
+    "&:hover": {
+      color: theme.palette.primary.main,
+    },
+  };
+});
+
+const Search = () => {
+  const { isMdDown } = useMedia();
+  return (
+    <OutlinedInput
+      fullWidth={isMdDown ? true : false}
+      id="outlined-adornment-weight"
+      placeholder="tìm kiếm..."
+      endAdornment={<SearchIcon />}
+      aria-describedby="outlined-weight-helper-text"
+      inputProps={{
+        "aria-label": "weight",
+      }}
+    />
+  );
+};

@@ -16,7 +16,7 @@ export default function HomeNews(props: Props) {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <TitleLine title="News" />
+        {/* <TitleLine title="News" /> */}
       </Grid>
 
       <Grid container spacing={4}>

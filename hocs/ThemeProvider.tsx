@@ -217,7 +217,17 @@ const theme = createTheme({
       defaultProps: {},
     },
 
-    MuiOutlinedInput: { styleOverrides: { root: {} } },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          marginTop: 0,
+          padding: "0 1rem",
+          borderRadius: "0.8rem",
+          "& .MuiOutlinedInput-input": { padding: "0.6rem 0" },
+          "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+        },
+      },
+    },
   },
 });
 

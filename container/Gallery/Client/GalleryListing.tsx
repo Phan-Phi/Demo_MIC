@@ -37,7 +37,7 @@ export default function GalleryListing(props: GalleryProps) {
     <Container>
       <Grid container marginBottom="4rem">
         <Grid item xs={12}>
-          <TitleLine title={dataListing[0].title} />
+          {/* <TitleLine title={dataListing[0].title} /> */}
         </Grid>
 
         <Grid item xs={12}>

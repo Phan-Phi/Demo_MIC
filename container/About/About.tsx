@@ -86,14 +86,14 @@ export default function About(props: PropsAbout) {
     <Container>
       <Grid container>
         <Grid item xs={12}>
-          <TitleLine title={story_title} />
+          {/* <TitleLine title={story_title} /> */}
         </Grid>
 
         <Grid item xs={12}></Grid>
         <Grid item xs={12}></Grid>
 
         <Grid item xs={12} marginBottom={5}>
-          <TitleLine title={value_title} />
+          {/* <TitleLine title={value_title} /> */}
           <Box ref={ref} sx={{ position: "relative" }}>
             <Image
               src="/img/Asset 1@4x 1.png"

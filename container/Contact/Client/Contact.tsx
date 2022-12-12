@@ -62,7 +62,7 @@ export default function Contact(props: ContactProps) {
     <Container>
       <Grid container spacing={isSmDown ? 0 : 3} margin="3rem 0" width="100%">
         <Grid item xs={12}>
-          <TitleLine title={data.title} />
+          {/* <TitleLine title={data.title} /> */}
         </Grid>
 
         <Grid item xs={12} md={6}>

@@ -19,7 +19,7 @@ export default function OurCategories(props: Props) {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <TitleLine title="Our Categories" />
+        {/* <TitleLine title="Our Categories" /> */}
       </Grid>
       <Grid container spacing={4}>
         {data &&

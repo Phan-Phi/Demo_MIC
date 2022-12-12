@@ -39,7 +39,7 @@ export default function NewsListing(props: NewsProps) {
     <Container>
       <Grid container marginBottom="5rem">
         <Grid item xs={12} marginBottom="2rem">
-          <TitleLine title={dataListing[0].title} />
+          {/* <TitleLine title={dataListing[0].title} /> */}
         </Grid>
 
         <Grid item xs={12}>

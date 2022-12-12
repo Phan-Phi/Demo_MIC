@@ -24,11 +24,12 @@ export default function Tabs(props: TabsProps) {
       onChange={onChange}
       sx={{
         [theme.breakpoints.down("sm")]: {
-          overflowX: "scroll",
           "& .MuiTabs-flexContainer": {
             justifyContent: "unset",
             gap: "1rem",
           },
+
+          "& ::-webkit-scrollbar": { display: "none" },
         },
       }}
     >

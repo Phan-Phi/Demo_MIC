@@ -1,4 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
+import { useMedia } from "hook/useMedia";
 import Image from "next/image";
 import React from "react";
 import { useMeasure } from "react-use";
@@ -6,6 +7,8 @@ import { useMeasure } from "react-use";
 export default function TitleLine({ title }: { title: string }) {
   const [ref, { width, height }] = useMeasure();
   const theme = useTheme();
+  const { isSmDown } = useMedia();
+
   const sizeWidth = width + 110;
   const sizeHeight = height + 20;
 
@@ -14,7 +17,7 @@ export default function TitleLine({ title }: { title: string }) {
       sx={{
         position: "relative",
         width: "100%",
-        margin: "2rem auto",
+        margin: isSmDown ? "1rem auto" : "2rem auto",
         textAlign: "center",
       }}
     >
@@ -22,25 +25,24 @@ export default function TitleLine({ title }: { title: string }) {
         src="/img/Frame (1).png"
         width={sizeWidth}
         height={sizeHeight}
-        alt="sdsad"
-        // style={{position: "relative"}}
+        alt="frame"
       />
-      <Box ref={ref}>
-        <Typography
-          variant="h5"
-          textAlign="center"
-          sx={{
-            color: theme.palette.primary.main,
-            position: "absolute",
-            top: "45%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-          component="p"
-        >
-          {title}
-        </Typography>
-      </Box>
+
+      {/* <Typography
+        ref={ref}
+        variant="h5"
+        textAlign="center"
+        sx={{
+          color: theme.palette.primary.main,
+          position: "absolute",
+          top: "45%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+        component="p"
+      >
+        {title}
+      </Typography> */}
     </Box>
   );
 }

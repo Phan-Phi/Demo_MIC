@@ -21,7 +21,7 @@ import { PRODUCT_DETAIL_ITEMS } from "interface/responseSchema/product";
 import { PAGES_API, TYPE_PARAMS } from "apis";
 import { IPage } from "interface";
 import RelatedProduct from "components/RelatedProduct";
-import { Image, Title } from "components";
+import { Image } from "components";
 
 export type PropsProductDetail = IPage<[PRODUCT_DETAIL_ITEMS]>;
 
@@ -165,7 +165,6 @@ export default function ProductDetail(props: PropsProductDetail) {
             },
           }}
         >
-          <Title title="Related Product" />
           <RelatedProduct data={relate} />
         </Grid>
       </Grid>

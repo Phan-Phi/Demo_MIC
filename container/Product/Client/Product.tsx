@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Container, Divider, Grid, Typography } from "@mui/material";
 
-import { Title } from "components";
 import CardProduct from "components/Card/CardProduct";
 import TabPanel from "components/Tabs/TabPanel";
 import Tabs from "components/Tabs/Tabs";
@@ -122,10 +121,8 @@ export default function Product(props: ProductProps) {
 
   return (
     <Container>
-      <Grid container>
-        <Grid item xs={12}>
-          <Title title={dataListing[0].title} />
-        </Grid>
+      <Grid container margin="4rem 0">
+        <Grid item xs={12}></Grid>
 
         <Grid item xs={12}>
           {renderTabs}
