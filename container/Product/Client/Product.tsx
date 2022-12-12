@@ -2,7 +2,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Container, Divider, Grid, Typography } from "@mui/material";
+import { Container, Divider, Grid } from "@mui/material";
 
 import CardProduct from "components/Card/CardProduct";
 import TabPanel from "components/Tabs/TabPanel";

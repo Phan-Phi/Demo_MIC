@@ -4,11 +4,17 @@ import { useCallback } from "react";
 export const NotiStack = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const snackbarId = useCallback(() => {
-    enqueueSnackbar("No connection!", {
+  const snackbarSuccess = useCallback((message: string) => {
+    enqueueSnackbar(message, {
+      variant: "success",
+    });
+  }, []);
+
+  const snackbarEror = useCallback(({ response }: { response: any }) => {
+    enqueueSnackbar(response.data.message, {
       variant: "error",
     });
   }, []);
 
-  return { snackbarId };
+  return { snackbarSuccess, snackbarEror };
 };

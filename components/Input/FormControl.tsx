@@ -33,9 +33,8 @@ export default function FormControl(props: Props) {
       control={control}
       name={name}
       render={({ field: { onChange, value, name }, fieldState: { error } }) => {
-        
         return (
-          <MuiFormControl fullWidth>
+          <MuiFormControl fullWidth error={!!error}>
             <FormLabel>{label}</FormLabel>
 
             <InputBase
@@ -45,9 +44,12 @@ export default function FormControl(props: Props) {
               placeholder={placeholder}
               {...InputProps}
             />
-            <FormHelperText id="my-helper-text">
-              We'll never share your email.
-            </FormHelperText>
+
+            {error == undefined ? null : (
+              <FormHelperText id="my-helper-text">
+                {error.message}
+              </FormHelperText>
+            )}
           </MuiFormControl>
         );
       }}

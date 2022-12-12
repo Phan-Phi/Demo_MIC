@@ -42,41 +42,42 @@ export const schemaContact = () => {
       message: string().required(),
       email: string().email().required(),
       bank: string().required(),
-      phone_number: string().test({
-        // test: (value: string, ctx) => {
-        //   if (isValidPhoneNumber(value) === false) {
-        //     console.log("sdt co do dai or chu so ko dung quoc gia");
-        //     return false;
-        //   }
+      phone_number: string().required(),
+      // phone_number: string().test({
+      //   // test: (value: string, ctx) => {
+      //   //   if (isValidPhoneNumber(value) === false) {
+      //   //     console.log("sdt co do dai or chu so ko dung quoc gia");
+      //   //     return false;
+      //   //   }
 
-        //   if (isPossiblePhoneNumber(value) === false) {
-        //     console.log("sdt ko hop le, ko dc xac thuc");
-        //     return false;
-        //   }
-        //   return true;
-        // },
+      //   //   if (isPossiblePhoneNumber(value) === false) {
+      //   //     console.log("sdt ko hop le, ko dc xac thuc");
+      //   //     return false;
+      //   //   }
+      //   //   return true;
+      //   // },
 
-        test: (value) => {
-          if (value) {
-            const phoneNumber = parsePhoneNumber(value);
+      //   test: (value) => {
+      //     if (value) {
+      //       const phoneNumber = parsePhoneNumber(value);
 
-            if (phoneNumber) {
-              if (phoneNumber.country !== "VN") {
-                return false;
-              }
-              if (isValidPhoneNumber(phoneNumber.number)) {
-                return true;
-              } else {
-                return false;
-              }
-            } else {
-              return false;
-            }
-          } else {
-            return false;
-          }
-        },
-      }),
+      //       if (phoneNumber) {
+      //         if (phoneNumber.country !== "VN") {
+      //           return false;
+      //         }
+      //         if (isValidPhoneNumber(phoneNumber.number)) {
+      //           return true;
+      //         } else {
+      //           return false;
+      //         }
+      //       } else {
+      //         return false;
+      //       }
+      //     } else {
+      //       return false;
+      //     }
+      //   },
+      // }),
     })
   );
 };

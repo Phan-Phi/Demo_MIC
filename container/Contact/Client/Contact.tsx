@@ -14,7 +14,7 @@ import Phone from "components/Icon/Phone";
 import FormControl from "components/Input/FormControl";
 import PhoneNumber from "components/Input/PhoneNumber.";
 import { IPage, responseSchema } from "interface";
-import { ITEM_CONTACT, ITEM_SUBMIT } from "interface/responseSchema/contact";
+import { ITEM_CONTACT } from "interface/responseSchema/contact";
 import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
@@ -26,7 +26,6 @@ import FormNumber from "components/Input/FormNumber";
 import { useMedia } from "hook/useMedia";
 import TitleLine from "components/TitleLine/TitleLine";
 import { NotiStack } from "hook/notiStack";
-import { useSnackbar } from "notistack";
 
 export type ContactProps = IPage<[responseSchema<ITEM_CONTACT>]>;
 
@@ -42,7 +41,7 @@ export default function Contact(props: ContactProps) {
     defaultValues: defaultContact(),
   });
 
-  const { snackbarId } = NotiStack();
+  const { snackbarSuccess, snackbarEror } = NotiStack();
 
   const onSubmit = useCallback(async (data: any) => {
     try {
@@ -53,8 +52,9 @@ export default function Contact(props: ContactProps) {
       });
 
       reset(defaultContact);
-    } catch (err) {
-      console.log("🚀 ~ file: Contact.tsx:40 ~ onSubmit ~ err", err);
+      snackbarSuccess("Đăng ký thành công");
+    } catch (err: any) {
+      snackbarEror(err);
     }
   }, []);
 
@@ -156,7 +156,7 @@ export default function Contact(props: ContactProps) {
                       control={control}
                       name="email"
                       label="Email"
-                      placeholder="Nhập tên"
+                      placeholder="Nhập email"
                     />
                   </Grid>
                 </Grid>

@@ -5,11 +5,9 @@ import {
   Container,
   Dialog,
   OutlinedInput,
-  Popover,
   Stack,
   styled,
   Typography,
-  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
@@ -17,17 +15,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { Image } from "components";
-import { useSetting } from "hook/useContext";
 import { useMedia } from "hook/useMedia";
 
 import {
   usePopupState,
-  bindTrigger,
-  bindPopover,
   bindMenu,
   bindHover,
 } from "material-ui-popup-state/hooks";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import useSWR from "swr";
 import { transformUrl } from "libs/transformUrl";
@@ -36,13 +30,14 @@ import { useRouter } from "next/router";
 import { PAGES_API, TYPE_PARAMS } from "apis";
 import Link from "next/link";
 import { PRODUCT_CATEGORIES_ITEMS } from "interface/responseSchema/product";
+import HoverPopover from "material-ui-popup-state/HoverPopover";
 
 const TitleMenu = [
-  { id: 0, name: "Trang chủ", link: "/home" },
+  { id: 0, name: "Trang chủ", link: "/" },
   { id: 1, name: "Về chúng tôi", link: "/about" },
   { id: 2, name: "Sản phẩm", link: "/product" },
-  { id: 3, name: "Tin tức", link: "/gallery" },
-  { id: 4, name: "Thư viện", link: "/news" },
+  { id: 3, name: "Tin tức", link: "/news" },
+  { id: 4, name: "Thư viện", link: "/gallery" },
   { id: 5, name: "Liên hệ", link: "/contact" },
 ];
 
@@ -51,6 +46,7 @@ export default function Header() {
   const { isMdUp, isMdDown } = useMedia();
 
   const [open, setOpen] = useState(false);
+
   const popupState = usePopupState({
     variant: "popover",
     popupId: "demoPopover",
@@ -74,7 +70,7 @@ export default function Header() {
 
   const renderNav = useMemo(() => {
     return (
-      <>
+      <Box marginBottom={3}>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -89,9 +85,13 @@ export default function Header() {
               {TitleMenu.map((el, idx) => {
                 if (el.name == "Sản phẩm") {
                   return (
-                    <>
-                      <Link href={el.link} {...bindHover(popupState)}>
-                        <Stack direction="row" alignItems="center">
+                    <Box key={idx}>
+                      <Link href={el.link}>
+                        <Stack
+                          direction="row"
+                          alignItems="center"
+                          {...bindHover(popupState)}
+                        >
                           <ItemMenu key={idx} variant="button2">
                             {el.name}
                           </ItemMenu>
@@ -101,7 +101,17 @@ export default function Header() {
                         </Stack>
                       </Link>
 
-                      <Menu {...bindMenu(popupState)}>
+                      <HoverPopover
+                        {...bindMenu(popupState)}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                      >
                         {data &&
                           data.items.map(
                             (el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
@@ -114,8 +124,8 @@ export default function Header() {
                               );
                             }
                           )}
-                      </Menu>
-                    </>
+                      </HoverPopover>
+                    </Box>
                   );
                 } else {
                   return (
@@ -125,20 +135,12 @@ export default function Header() {
                   );
                 }
               })}
+              {/* <renderMenu data={data} /> */}
             </Stack>
           )}
 
           {isMdUp && (
             <Stack direction="row" alignItems="center" spacing={2}>
-              {/* <OutlinedInput
-            id="outlined-adornment-weight"
-            placeholder="tìm kiếm..."
-            endAdornment={<SearchIcon />}
-            aria-describedby="outlined-weight-helper-text"
-            inputProps={{
-              "aria-label": "weight",
-            }}
-          /> */}
               <Search />
 
               <Image alt="logo" width={30} height={30} src="/img/vi 1.png" />
@@ -153,36 +155,33 @@ export default function Header() {
         </Stack>
 
         {isMdDown && <Search />}
-      </>
+      </Box>
     );
   }, [isMdUp, isMdDown, popupState, data]);
 
   const AppBar = useMemo(() => {
     return (
-      <div>
-        <Dialog
-          fullScreen
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <Stack direction="column" spacing={14} padding="3rem 1.8rem">
-            <Stack direction="row" width="100%" justifyContent="space-between">
-              <Image alt="logo" width={100} height={80} src="/img/logo.png" />
-              <CloseIcon onClick={handleClose} />
-            </Stack>
+      <Dialog
+        sx={{ display: open ? "block" : "none" }}
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <Stack direction="column" spacing={14} padding="3rem 1.8rem">
+          <Stack direction="row" width="100%" justifyContent="space-between">
+            <Image alt="logo" width={100} height={80} src="/img/logo.png" />
+            <CloseIcon onClick={handleClose} />
+          </Stack>
 
-            <Stack direction="column" spacing={5}>
-              {TitleMenu.map((el, idx) => {
-                if (el.name == "Về chúng tôi") {
-                  return (
-                    <>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        {...bindTrigger(popupState)}
-                      >
+          <Stack direction="column" spacing={5}>
+            {TitleMenu.map((el, idx) => {
+              if (el.name == "Sản phẩm") {
+                return (
+                  <Box key={idx}>
+                    <Link href={el.link} {...bindHover(popupState)}>
+                      <Stack direction="row" alignItems="center">
                         <ItemMenu key={idx} variant="button2">
                           {el.name}
                         </ItemMenu>
@@ -190,37 +189,48 @@ export default function Header() {
                           <ExpandMoreIcon />
                         </ItemMenu>
                       </Stack>
+                    </Link>
 
-                      <Popover
-                        {...bindPopover(popupState)}
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "center",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "center",
-                        }}
-                      >
-                        <Typography>The content of the Popover.</Typography>
-                      </Popover>
-                    </>
-                  );
-                } else {
-                  return (
-                    <ItemMenu key={idx} variant="button2">
-                      {el.name}
-                    </ItemMenu>
-                  );
-                }
-              })}
-              <Image alt="logo" width={30} height={30} src="/img/vi 1.png" />
-            </Stack>
+                    <HoverPopover
+                      {...bindMenu(popupState)}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                    >
+                      {data &&
+                        data.items.map(
+                          (el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
+                            return (
+                              <MenuItem key={idx} onClick={popupState.close}>
+                                <Typography variant="caption2">
+                                  {el.title}
+                                </Typography>
+                              </MenuItem>
+                            );
+                          }
+                        )}
+                    </HoverPopover>
+                  </Box>
+                );
+              } else {
+                return (
+                  <ItemMenu key={idx} variant="button2" onClick={handleClose}>
+                    <Link href={el.link}>{el.name}</Link>
+                  </ItemMenu>
+                );
+              }
+            })}
+            <Image alt="logo" width={30} height={30} src="/img/vi 1.png" />
           </Stack>
-        </Dialog>
-      </div>
+        </Stack>
+      </Dialog>
     );
-  }, [open]);
+  }, [open, data, popupState]);
 
   return (
     <Container>
@@ -256,3 +266,56 @@ const Search = () => {
     />
   );
 };
+
+// const renderMenu = ({ data }) => {
+//   const popupState = usePopupState({
+//     variant: "popover",
+//     popupId: "demoPopover",
+//   });
+
+//   return TitleMenu.map((el, idx) => {
+//     if (el.name == "Sản phẩm") {
+//       return (
+//         <>
+//           <Link href={el.link} {...bindHover(popupState)}>
+//             <Stack direction="row" alignItems="center">
+//               <ItemMenu key={idx} variant="button2">
+//                 {el.name}
+//               </ItemMenu>
+//               <ItemMenu key={idx} variant="button2">
+//                 <ExpandMoreIcon />
+//               </ItemMenu>
+//             </Stack>
+//           </Link>
+
+//           <HoverPopover
+//             {...bindMenu(popupState)}
+//             anchorOrigin={{
+//               vertical: "bottom",
+//               horizontal: "left",
+//             }}
+//             transformOrigin={{
+//               vertical: "top",
+//               horizontal: "left",
+//             }}
+//           >
+//             {data &&
+//               data.items.map((el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
+//                 return (
+//                   <MenuItem key={idx} onClick={popupState.close}>
+//                     <Typography variant="caption2">{el.title}</Typography>
+//                   </MenuItem>
+//                 );
+//               })}
+//           </HoverPopover>
+//         </>
+//       );
+//     } else {
+//       return (
+//         <ItemMenu key={idx} variant="button2" onClick={handleClose}>
+//           <Link href={el.link}>{el.name}</Link>
+//         </ItemMenu>
+//       );
+//     }
+//   });
+// };

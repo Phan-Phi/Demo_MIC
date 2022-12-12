@@ -6,13 +6,17 @@ import {
   Stack,
   styled,
   Typography,
-  useTheme,
 } from "@mui/material";
+import { PAGES_API, TYPE_PARAMS } from "apis";
 import { ROUTES_HEADER } from "constant";
 import { useSetting } from "hook/useContext";
 import { useMedia } from "hook/useMedia";
+import { PRODUCT_CATEGORIES_ITEMS } from "interface/responseSchema/product";
+import { transformUrl } from "libs/transformUrl";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useMemo } from "react";
+import useSWR from "swr";
 import Image from "../components/Image";
 import Location from "./Icon/Location";
 import Mail from "./Icon/Mail";
@@ -20,9 +24,17 @@ import Phone from "./Icon/Phone";
 import Map from "./Map";
 
 export default function Footer() {
-  const theme = useTheme();
+  const router = useRouter();
   const { isSmDown, isMdUp } = useMedia();
   const setting = useSetting();
+
+  const { data: productCategori } = useSWR(
+    transformUrl(PAGES_API, {
+      locale: router.locale,
+      type: TYPE_PARAMS["product.ProductCategoryPage"],
+      fields: "*",
+    })
+  );
 
   const { logo, email, hotline, address, social_icons } = setting;
 
@@ -86,19 +98,16 @@ export default function Footer() {
               <Grid item xs={12}>
                 <TitleMenu>Products</TitleMenu>
               </Grid>
-
-              <Grid item xs={12}>
-                <TextMenu>Chalkboard Chalk</TextMenu>
-              </Grid>
-              <Grid item xs={12}>
-                <TextMenu>School Supplies and Student Tools</TextMenu>
-              </Grid>
-              <Grid item xs={12}>
-                <TextMenu>Office Supplies</TextMenu>
-              </Grid>
-              <Grid item xs={12}>
-                <TextMenu>Art Supplies</TextMenu>
-              </Grid>
+              {productCategori &&
+                productCategori.items.map(
+                  (el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
+                    return (
+                      <Grid key={idx} item xs={12}>
+                        <TextMenu>{el.title}</TextMenu>
+                      </Grid>
+                    );
+                  }
+                )}
             </Grid>
           </Grid>
 
