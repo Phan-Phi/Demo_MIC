@@ -3,7 +3,7 @@ import { useMeasure } from "react-use";
 import Link from "next/link";
 import ROUTES from "routes";
 import { HOME_PAGE_OUR_CATEGORIES, responseSchema } from "interface";
-import { Image, Title } from "components";
+import { Image } from "components";
 import TitleLine from "components/TitleLine/TitleLine";
 
 type Props = {
@@ -15,7 +15,6 @@ type PropsCategories = {
 
 export default function OurCategories(props: Props) {
   const { data } = props;
-  console.log("🚀 ~ file: OurCategories.tsx:17 ~ OurCategories ~ data", data);
 
   return (
     <Grid container>

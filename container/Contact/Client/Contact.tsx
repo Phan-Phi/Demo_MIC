@@ -46,7 +46,6 @@ export default function Contact(props: ContactProps) {
 
   const onSubmit = useCallback(async (data: ITEM_SUBMIT) => {
     try {
-      snackbarId("sadasd");
       await axios.post(SUBMISSIONS_API, data, {
         headers: {
           Authorization: process.env.NEXT_PUBLIC_API_KEY,

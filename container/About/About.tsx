@@ -22,7 +22,6 @@ export type PropsAbout = IPage<[responseSchema<ITEM_ABOUT>]>;
 
 export default function About(props: PropsAbout) {
   const { initData } = props;
-  console.log("🚀 ~ file: About.tsx:17 ~ About ~ initData", initData);
   const {
     story_title,
     mission_title,

@@ -35,10 +35,7 @@ export default function FormControl(props: Props) {
       control={control}
       name={name}
       render={({ field: { onChange, value, name }, fieldState: { error } }) => {
-        console.log(
-          "🚀 ~ file: FormControl.tsx:58 ~ FormControl ~ error",
-          error
-        );
+        
         return (
           <MuiFormControl fullWidth>
             <FormLabel>{label}</FormLabel>
