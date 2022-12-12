@@ -102,9 +102,14 @@ export default function Footer() {
                 productCategori.items.map(
                   (el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
                     return (
-                      <Grid key={idx} item xs={12}>
-                        <TextMenu>{el.title}</TextMenu>
-                      </Grid>
+                      <Link
+                        href={`/product?child_of=${el.id}`}
+                        style={{ width: "100%" }}
+                      >
+                        <Grid key={idx} item xs={12}>
+                          <TextMenu>{el.title}</TextMenu>
+                        </Grid>
+                      </Link>
                     );
                   }
                 )}

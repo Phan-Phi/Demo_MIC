@@ -145,6 +145,15 @@ const theme = createTheme({
         outlined: {
           color: defaultTheme.palette.primary.main,
           borderRadius: 8,
+          ":hover": {
+            backgroundColor: "#ffffff",
+            boxShadow: "none",
+          },
+          ":active": {
+            boxShadow: "none",
+            color: defaultTheme.palette.common.white,
+            backgroundColor: defaultTheme.palette.primary.main,
+          },
         },
       },
       defaultProps: {},

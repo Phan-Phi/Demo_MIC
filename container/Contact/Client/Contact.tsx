@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Map } from "components";
+import { Image, Map } from "components";
 import Location from "components/Icon/Location";
 import Mail from "components/Icon/Mail";
 import Phone from "components/Icon/Phone";
@@ -15,7 +15,7 @@ import FormControl from "components/Input/FormControl";
 import PhoneNumber from "components/Input/PhoneNumber.";
 import { IPage, responseSchema } from "interface";
 import { ITEM_CONTACT } from "interface/responseSchema/contact";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useForm } from "react-hook-form";
 import { SUBMISSIONS_API } from "apis";
@@ -26,6 +26,7 @@ import FormNumber from "components/Input/FormNumber";
 import { useMedia } from "hook/useMedia";
 import TitleLine from "components/TitleLine/TitleLine";
 import { NotiStack } from "hook/notiStack";
+import { useSetting } from "hook/useContext";
 
 export type ContactProps = IPage<[responseSchema<ITEM_CONTACT>]>;
 
@@ -35,6 +36,8 @@ export default function Contact(props: ContactProps) {
 
   const theme = useTheme();
   const { isSmDown } = useMedia();
+  const setting = useSetting();
+  const { social_icons } = setting;
 
   const { handleSubmit, control, reset } = useForm({
     resolver: schemaContact(),
@@ -57,6 +60,24 @@ export default function Contact(props: ContactProps) {
       snackbarEror(err);
     }
   }, []);
+
+  const renderSocial = useMemo(() => {
+    if (social_icons == undefined) {
+      return null;
+    }
+
+    return social_icons.map((el, idx) => {
+      const { block_type, value } = el;
+      return (
+        <Image
+          src={value.icon}
+          alt="social_icons"
+          width={isSmDown ? "30px" : "30px"}
+          height={isSmDown ? "60px" : "30px"}
+        />
+      );
+    });
+  }, [social_icons]);
 
   return (
     <Container>
@@ -120,6 +141,10 @@ export default function Contact(props: ContactProps) {
                 <Phone />
                 <Typography variant="caption2">+(84) 28 3924 1814</Typography>
               </Stack>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Stack direction="row">{renderSocial}</Stack>
             </Grid>
           </Grid>
         </Grid>
@@ -192,7 +217,8 @@ export default function Contact(props: ContactProps) {
               marginTop="2rem"
             >
               <Button
-                variant="contained"
+                disableRipple={true}
+                variant="outlined"
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
               >
