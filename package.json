@@ -2,6 +2,7 @@
   "name": "demo-mic-pap",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://MIC-PAP.github.io",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
