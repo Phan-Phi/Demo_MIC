@@ -8,6 +8,11 @@ import {
 } from "@mui/material";
 import PhoneInput from "react-phone-number-input/input";
 
+type InputPropsWithoutValueAndOnChange = Omit<
+  InputProps,
+  "value" | "onChange" | "inputComponent"
+>;
+
 type Props = {
   name: "phone_number";
   fullWidth?: boolean;
@@ -38,7 +43,11 @@ export default function PhoneNumber(props: Props) {
             <FormLabel>{label}</FormLabel>
 
             <PhoneInput
-              inputComponent={FancyButton}
+              inputComponent={
+                FancyButton as (
+                  props: InputPropsWithoutValueAndOnChange
+                ) => JSX.Element
+              }
               country="VN"
               placeholder={placeholder}
               value={value}

@@ -15,9 +15,5 @@ export default function TabPanel({
   index: number;
   value: number;
 }) {
-  return (
-    <Box index={index} value={value}>
-      {children}
-    </Box>
-  );
+  return value == index ? <Box hidden={value !== index}>{children}</Box> : null;
 }

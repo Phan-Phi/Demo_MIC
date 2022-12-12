@@ -31,6 +31,7 @@ export default function CardProduct(props: Props) {
           // />
 
           <Image
+            alt="image"
             src={thumbnail}
             width={width}
             height={width}

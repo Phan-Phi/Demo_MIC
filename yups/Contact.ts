@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   isPossiblePhoneNumber,
   isValidPhoneNumber,
+  parsePhoneNumber,
 } from "react-phone-number-input";
 import { object, string } from "yup";
 
@@ -42,15 +43,38 @@ export const schemaContact = () => {
       email: string().email().required(),
       bank: string().required(),
       phone_number: string().test({
-        test(value: string, ctx) {
-          if (isValidPhoneNumber(value) === false) {
-            console.log("sdt co do dai or chu so ko dung quoc gia");
-          }
+        // test: (value: string, ctx) => {
+        //   if (isValidPhoneNumber(value) === false) {
+        //     console.log("sdt co do dai or chu so ko dung quoc gia");
+        //     return false;
+        //   }
 
-          if (isPossiblePhoneNumber(value) === false) {
-            console.log("sdt ko hop le, ko dc xac thuc");
+        //   if (isPossiblePhoneNumber(value) === false) {
+        //     console.log("sdt ko hop le, ko dc xac thuc");
+        //     return false;
+        //   }
+        //   return true;
+        // },
+
+        test: (value) => {
+          if (value) {
+            const phoneNumber = parsePhoneNumber(value);
+
+            if (phoneNumber) {
+              if (phoneNumber.country !== "VN") {
+                return false;
+              }
+              if (isValidPhoneNumber(phoneNumber.number)) {
+                return true;
+              } else {
+                return false;
+              }
+            } else {
+              return false;
+            }
+          } else {
+            return false;
           }
-          return true;
         },
       }),
     })

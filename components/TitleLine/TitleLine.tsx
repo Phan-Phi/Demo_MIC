@@ -25,22 +25,22 @@ export default function TitleLine({ title }: { title: string }) {
         alt="sdsad"
         // style={{position: "relative"}}
       />
-
-      <Typography
-        ref={ref}
-        variant="h5"
-        textAlign="center"
-        sx={{
-          color: theme.palette.primary.main,
-          position: "absolute",
-          top: "45%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-        component="p"
-      >
-        {title}
-      </Typography>
+      <Box ref={ref}>
+        <Typography
+          variant="h5"
+          textAlign="center"
+          sx={{
+            color: theme.palette.primary.main,
+            position: "absolute",
+            top: "45%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          component="p"
+        >
+          {title}
+        </Typography>
+      </Box>
     </Box>
   );
 }

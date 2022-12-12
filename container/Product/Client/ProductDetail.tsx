@@ -67,7 +67,15 @@ export default function ProductDetail(props: PropsProductDetail) {
     return (
       <>
         <Box>
-          <Slider asNavFor={nav2} ref={(slider1) => setNav1(slider1)}>
+          <Slider
+            asNavFor={nav2}
+            // ref={(slider1) => setNav1(slider1)}
+
+            ref={(slider) => {
+              if (slider == null) return;
+              setNav1(slider);
+            }}
+          >
             {images &&
               images.map((el, idx: number) => {
                 return (
@@ -91,7 +99,10 @@ export default function ProductDetail(props: PropsProductDetail) {
         >
           <Slider
             asNavFor={nav1}
-            ref={(slider2) => setNav2(slider2)}
+            ref={(slider) => {
+              if (slider == null) return;
+              setNav2(slider);
+            }}
             slidesToShow={3}
             swipeToSlide={true}
             focusOnSelect={true}

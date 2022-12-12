@@ -1,12 +1,12 @@
-import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-function ErrorFallback({ error, resetErrorBoundary }) {
+function ErrorFallback() {
+  // { error: any, resetErrorBoundary: any }
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
+      {/* <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button> */}
     </div>
   );
 }

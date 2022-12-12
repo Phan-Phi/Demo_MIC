@@ -44,7 +44,7 @@ export default function Contact(props: ContactProps) {
 
   const { snackbarId } = NotiStack();
 
-  const onSubmit = useCallback(async (data: ITEM_SUBMIT) => {
+  const onSubmit = useCallback(async (data: any) => {
     try {
       await axios.post(SUBMISSIONS_API, data, {
         headers: {
