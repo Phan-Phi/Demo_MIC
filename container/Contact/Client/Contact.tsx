@@ -44,7 +44,7 @@ export default function Contact(props: ContactProps) {
     defaultValues: defaultContact(),
   });
 
-  const { snackbarSuccess, snackbarEror } = NotiStack();
+  const { snackbarSuccess, snackbarError } = NotiStack();
 
   const onSubmit = useCallback(async (data: any) => {
     try {
@@ -57,7 +57,7 @@ export default function Contact(props: ContactProps) {
       reset(defaultContact);
       snackbarSuccess("Đăng ký thành công");
     } catch (err: any) {
-      snackbarEror(err);
+      snackbarError(err);
     }
   }, []);
 

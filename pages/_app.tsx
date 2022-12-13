@@ -11,13 +11,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <UI>
       <SnackbarProvider>
-        <ConponentThemeProvider>
-          <Setting>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </Setting>
-        </ConponentThemeProvider>
+        <SWR>
+          <ConponentThemeProvider>
+            <Setting>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Setting>
+          </ConponentThemeProvider>
+        </SWR>
       </SnackbarProvider>
     </UI>
   );

@@ -93,7 +93,7 @@ export default function Header() {
             <Stack direction="row" alignItems="center" spacing={3}>
               {TitleMenu.map((el, idx) => {
                 if (el.name == "Sản phẩm") {
-                  return <RenderMenu data={el} dataItem={data} />;
+                  return <RenderMenu data={el} dataItem={data} key={idx} />;
                 } else {
                   return (
                     <ItemMenu key={idx} variant="button2">
@@ -148,7 +148,7 @@ export default function Header() {
           <Stack direction="column" spacing={5}>
             {TitleMenu.map((el, idx) => {
               if (el.name == "Sản phẩm") {
-                return <RenderMenu data={el} dataItem={data} />;
+                return <RenderMenu data={el} dataItem={data} key={idx} />;
               } else {
                 return (
                   <ItemMenu key={idx} variant="button2" onClick={handleClose}>

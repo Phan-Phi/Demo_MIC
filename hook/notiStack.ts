@@ -10,11 +10,11 @@ export const NotiStack = () => {
     });
   }, []);
 
-  const snackbarEror = useCallback(({ response }: { response: any }) => {
+  const snackbarError = useCallback(({ response }: { response: any }) => {
     enqueueSnackbar(response.data.message, {
       variant: "error",
     });
   }, []);
 
-  return { snackbarSuccess, snackbarEror };
+  return { snackbarSuccess, snackbarError };
 };

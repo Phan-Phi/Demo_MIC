@@ -10,29 +10,36 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function NewsDemo() {
   const [nextPost, setNextPost] = useState(
-    "https://mic.t-solution.vn/api/v2/pages/?fields=%2A&locale=vi&type=news.NewsDetailPage&limit=6"
+    "https://mic.t-solution.vn/api/v2/pages/?fields=%2A&locale=vi&type=news.NewsDetailPage&limit=1"
   );
-  console.log("🚀 ~ file: NewsDemo.tsx:15 ~ NewsDemo ~ nextPost", nextPost);
-  const [data, setData] = useState([]);
-  const [renderData, setRenderData] = useState([]);
-  const [isFetch, setIsFetch] = useState(false);
+  const [data, setData] = useState<NEW_DETAIL_ITEMS[]>([]);
+  console.log("🚀 ~ file: NewsDemo.tsx:16 ~ NewsDemo ~ data", data);
+  const [isFetch, setIsFetch] = useState(true);
 
   const { data: resData } = useSWR(nextPost, fetcher);
-  console.log("🚀 ~ file: NewsDemo.tsx:21 ~ NewsDemo ~ resData", resData);
 
   useEffect(() => {
-    if (resData == undefined) {
-      return;
-    }
+    if (isFetch) {
+      if (!resData) {
+        return;
+      }
+      const next = resData.next;
+      const items = resData.items;
 
-    setRenderData(resData);
-    setData(resData.items);
-  }, [resData]);
+      const mergeDataFetch: NEW_DETAIL_ITEMS[] = [];
+      items.forEach((el: NEW_DETAIL_ITEMS) => {
+        mergeDataFetch.push(el);
+      });
+
+      setNextPost(next);
+      setData(data.concat(mergeDataFetch));
+      setIsFetch(false);
+    }
+  }, [resData, isFetch]);
 
   const handlePost = useCallback(() => {
-    console.log("sdas");
     setIsFetch(true);
-  }, []);
+  }, [isFetch]);
 
   const renderItemNews = useMemo(() => {
     return data.map((el: NEW_DETAIL_ITEMS, idx) => {
@@ -62,7 +69,11 @@ export default function NewsDemo() {
           </Grid>
 
           <Stack alignItems="center" marginTop="2rem">
-            <Button variant="contained" onClick={handlePost}>
+            <Button
+              variant="contained"
+              onClick={handlePost}
+              sx={{ display: nextPost ? "block" : "none" }}
+            >
               Xem Thêm
             </Button>
           </Stack>

@@ -48,6 +48,7 @@ export default function Footer() {
 
       return (
         <Image
+          key={idx}
           src={value.icon}
           alt="social_icons"
           width={isSmDown ? "30px" : "30px"}
@@ -105,10 +106,11 @@ export default function Footer() {
                   (el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
                     return (
                       <Link
+                        key={idx}
                         href={`/product?child_of=${el.id}`}
                         style={{ width: "100%" }}
                       >
-                        <Grid key={idx} item xs={12}>
+                        <Grid item xs={12}>
                           <TextMenu>{el.title}</TextMenu>
                         </Grid>
                       </Link>
