@@ -75,7 +75,9 @@ export default function Footer() {
         <Grid container spacing={5}>
           <Grid item xs={12} md={3}>
             {logo && (
-              <Image src={logo} alt="Logo" width="120px" height="120px" />
+              <Link href="/">
+                <Image src={logo} alt="Logo" width="120px" height="120px" />
+              </Link>
             )}
           </Grid>
 

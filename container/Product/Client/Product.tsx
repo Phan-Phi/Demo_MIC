@@ -39,6 +39,7 @@ export default function Product(props: ProductProps) {
   const dataCategories = initData[1].items;
   const dataDetail = initData[2].items;
   const router = useRouter();
+  console.log("🚀 ~ file: Product.tsx:42 ~ Product ~ router", router);
 
   const [currentTabs, setCurrentTabs] = useState<number>(0);
   const [dataTabpanel, setDataTabPanel] = useState(dataDetail);
@@ -58,9 +59,22 @@ export default function Product(props: ProductProps) {
     if (!data) {
       return;
     }
-
     setDataTabPanel(data.items);
   }, [data]);
+
+  useEffect(() => {
+    if (router.query.child_of == undefined) {
+      setCurrentTabs(0);
+      setParams({
+        child_of: undefined,
+      });
+    } else {
+      setCurrentTabs(Number(router.query.child_of));
+      setParams({
+        child_of: router.query.child_of,
+      });
+    }
+  }, [router]);
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: number) => {

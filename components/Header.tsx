@@ -1,3 +1,4 @@
+import useSWR from "swr";
 import React, { useCallback, useMemo, useState } from "react";
 
 import {
@@ -23,7 +24,6 @@ import {
   bindPopover,
 } from "material-ui-popup-state/hooks";
 import MenuItem from "@mui/material/MenuItem";
-import useSWR from "swr";
 import { transformUrl } from "libs/transformUrl";
 import { useRouter } from "next/router";
 
@@ -85,7 +85,9 @@ export default function Header() {
           margin="1.5rem 0"
         >
           <Box>
-            <Image alt="logo" width={100} height={80} src="/img/logo.png" />
+            <Link href="/">
+              <Image alt="logo" width={100} height={80} src="/img/logo.png" />
+            </Link>
           </Box>
           {isMdUp && (
             <Stack direction="row" alignItems="center" spacing={3}>
@@ -234,7 +236,9 @@ const RenderMenu = ({
           dataItem.items.map((el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
             return (
               <MenuItem key={idx} onClick={popupState.close}>
-                <Typography variant="caption2">{el.title}</Typography>
+                <Link href={`/product?child_of=${el.id}`}>
+                  <Typography variant="caption2">{el.title}</Typography>
+                </Link>
               </MenuItem>
             );
           })}

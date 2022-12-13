@@ -1,5 +1,5 @@
 "use client";
-
+import DOMPurify from "isomorphic-dompurify";
 import { Box, styled, Typography, useTheme } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { format, parseISO } from "date-fns";
@@ -28,6 +28,7 @@ type Props = {
 
 export default function CardItem(props: Props) {
   const { data } = props;
+
   const [ref, { width }] = useMeasure();
   const theme = useTheme();
   const pathname: string | null = usePathname();
@@ -35,9 +36,7 @@ export default function CardItem(props: Props) {
   const text =
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde quisquam, quam aliquam soluta accusamus dignissimos temporibus ut saepe inventore, facere sed possimus dolorum natus voluptatem esse. Alias inventore rerum velit!";
 
-  // if (data == undefined) {
-  //   return <SkeletonItem widthSize={widthSize} heightSize={heightSize} />;
-  // }
+  // const text2 = data.content[0].value;
   return (
     <Box sx={{ cursor: "pointer" }} ref={ref}>
       <Box>
@@ -79,19 +78,39 @@ export default function CardItem(props: Props) {
       >
         {format(parseISO(data.last_published_at), "dd/MM/yyyy")}
       </Typography>
-      {pathname == "/news" && (
-        <Text
-          variant="h6"
-          sx={{
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            overflow: "hidden",
-            WebkitBoxOrient: "vertical",
-          }}
-        >
-          {text}
-        </Text>
-      )}
+      {/* <Box
+        sx={{
+          display: "-webkit-box",
+          WebkitLineClamp: 3,
+          overflow: "hidden",
+          WebkitBoxOrient: "vertical",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(text2, {
+            USE_PROFILES: { svg: false, jpg: false },
+          }),
+        }}
+      ></Box> */}
+
+      {/* {data.content?.map((el, idx) => {
+        if (el.block_type === "content") {
+          return (
+            <Box
+              sx={{
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+              }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(el.value),
+              }}
+            >
+              sad
+            </Box>
+          );
+        }
+      })} */}
     </Box>
   );
 }
@@ -114,3 +133,26 @@ const Text = styled(Typography)(({ theme }) => {
     marginTop: "1rem",
   };
 });
+// {pathname == "/news" &&
+// // <Text
+// //   variant="h6"
+// //   sx={{
+// //     display: "-webkit-box",
+// //     WebkitLineClamp: 3,
+// //     overflow: "hidden",
+// //     WebkitBoxOrient: "vertical",
+// //   }}
+// // >
+// //   {text}
+// // </Text>
+// {
+//   /* <Typography
+//   variant="h6"
+//   sx={{
+//     display: "-webkit-box",
+//     WebkitLineClamp: 3,
+//     overflow: "hidden",
+//     WebkitBoxOrient: "vertical",
+//   }}
+// ></Typography> */
+// }}
