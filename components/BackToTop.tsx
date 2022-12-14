@@ -9,7 +9,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export default function BackToTop() {
   const theme = useTheme();
-  const { x, y } = useWindowScroll();
+  const { y } = useWindowScroll();
 
   const [checked, setChecked] = useState(false);
 

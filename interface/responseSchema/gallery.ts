@@ -1,7 +1,10 @@
 import { MetaItem } from "./utils";
 
 export type GALLERY_DETAIL_ITEMS = {
-  content: {}[];
+  content: {
+    block_type: string;
+    value: string | Node;
+  }[];
   id: number;
   last_published_at: string;
   meta: MetaItem;
@@ -10,7 +13,7 @@ export type GALLERY_DETAIL_ITEMS = {
   is_on_homepage: boolean;
 };
 
-export type NEW_LISTING_ITEMS = {
+export type GALLERY_LISTING_ITEMS = {
   id: number;
   last_published_at: string;
   meta: {}[];

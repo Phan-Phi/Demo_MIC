@@ -7,7 +7,10 @@ export type MetaParentNews = {
 };
 
 export type NEW_DETAIL_ITEMS = {
-  content: {}[];
+  content: {
+    block_type: string;
+    value: string | Node;
+  }[];
   id: number;
   last_published_at: string;
   meta: MetaItem;

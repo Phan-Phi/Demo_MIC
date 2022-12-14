@@ -1,6 +1,6 @@
 export const BLOG = {
   BLOG_PRODUCT: 8,
-  BLOG_NEWS: 1,
+  BLOG_NEWS: 6,
   BLOG_GALLERY: 6,
 };
 

@@ -1,6 +1,7 @@
 export * from "./utils";
 export * from "./home";
 export * from "./setting";
+export * from "./gallery";
 export * from "./news";
 
 type responseSchema<T> = {

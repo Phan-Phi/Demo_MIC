@@ -17,6 +17,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { Image } from "components";
 import { useMeasure } from "react-use";
 import { useMemo } from "react";
+import DOMPurify from "isomorphic-dompurify";
+import { RenderHTML } from "components/Render/RenderHTML";
 
 export type PropsAbout = IPage<[responseSchema<ITEM_ABOUT>]>;
 
@@ -89,7 +91,18 @@ export default function About(props: PropsAbout) {
           {/* <TitleLine title={story_title} /> */}
         </Grid>
 
-        <Grid item xs={12}></Grid>
+        <Grid item xs={12}>
+          {story_content.map(
+            (el: { block_type: string; value: string }, idx: number) => {
+              const { block_type, value } = el;
+              if (block_type == "content") {
+                return <Box key={idx}>{RenderHTML(value)}</Box>;
+              } else {
+                return null;
+              }
+            }
+          )}
+        </Grid>
         <Grid item xs={12}></Grid>
 
         <Grid item xs={12} marginBottom={5}>

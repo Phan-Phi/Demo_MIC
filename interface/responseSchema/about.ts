@@ -9,7 +9,7 @@ export type ITEM_ABOUT = {
   story_title: string;
   mission_title: string;
   value_title: string;
-  story_content: { block_type: string; value: string };
+  story_content: { block_type: string; value: string }[];
   mission_content: { block_type: string; value: string };
   value_content: {
     block_type: string;
