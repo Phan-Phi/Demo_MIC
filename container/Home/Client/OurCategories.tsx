@@ -1,8 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useMeasure } from "react-use";
 import Link from "next/link";
+
 import ROUTES from "routes";
 import { HOME_PAGE_OUR_CATEGORIES, responseSchema } from "interface";
+
 import { Image } from "components";
 import TitleLine from "components/TitleLine/TitleLine";
 

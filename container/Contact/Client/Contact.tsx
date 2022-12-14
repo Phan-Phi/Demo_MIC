@@ -1,3 +1,5 @@
+import { useForm } from "react-hook-form";
+import { useCallback, useMemo } from "react";
 import {
   Box,
   Button,
@@ -7,24 +9,24 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+
 import { Image, Map } from "components";
-import Location from "components/Icon/Location";
 import Mail from "components/Icon/Mail";
 import Phone from "components/Icon/Phone";
+import Location from "components/Icon/Location";
+import FormNumber from "components/Input/FormNumber";
 import FormControl from "components/Input/FormControl";
 import PhoneNumber from "components/Input/PhoneNumber.";
+import TitleLine from "components/TitleLine/TitleLine";
+
 import { IPage, responseSchema } from "interface";
 import { ITEM_CONTACT } from "interface/responseSchema/contact";
-import { useCallback, useMemo } from "react";
 
-import { useForm } from "react-hook-form";
 import { SUBMISSIONS_API } from "apis";
 import axios from "../../../axios.config";
 
 import { defaultContact, schemaContact } from "yups/Contact";
-import FormNumber from "components/Input/FormNumber";
 import { useMedia } from "hook/useMedia";
-import TitleLine from "components/TitleLine/TitleLine";
 import { NotiStack } from "hook/notiStack";
 import { useSetting } from "hook/useContext";
 
@@ -70,6 +72,7 @@ export default function Contact(props: ContactProps) {
       const { block_type, value } = el;
       return (
         <Image
+          key={idx}
           src={value.icon}
           alt="social_icons"
           width={isSmDown ? "30px" : "30px"}
@@ -95,7 +98,7 @@ export default function Contact(props: ContactProps) {
               },
             }}
           >
-            <Grid item xs={12}>
+            <Grid item xs={12} marginBottom="2rem">
               <Box
                 sx={{
                   backgroundColor: "#F4F5F6",
@@ -107,7 +110,7 @@ export default function Contact(props: ContactProps) {
               </Box>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} marginBottom="1rem">
               <Stack
                 direction="row"
                 alignItems="center"

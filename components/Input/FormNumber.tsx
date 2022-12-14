@@ -33,8 +33,6 @@ export default function FormNumber(props: PropsFormNumber) {
       control={control}
       name={name}
       render={({ field: { onChange, value }, fieldState: { error } }) => {
-        console.log("🚀 ~ file: FormNumber.tsx:65 ~ FormNumber ~ error", error);
-
         return (
           <FormControl fullWidth>
             <FormLabel>{label}</FormLabel>

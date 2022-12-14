@@ -38,8 +38,8 @@ export default function Product(props: ProductProps) {
   const dataListing = initData[0].items;
   const dataCategories = initData[1].items;
   const dataDetail = initData[2].items;
+
   const router = useRouter();
-  console.log("🚀 ~ file: Product.tsx:42 ~ Product ~ router", router);
 
   const [currentTabs, setCurrentTabs] = useState<number>(0);
   const [dataTabpanel, setDataTabPanel] = useState(dataDetail);

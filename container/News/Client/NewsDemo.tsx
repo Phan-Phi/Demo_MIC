@@ -13,12 +13,9 @@ export default function NewsDemo() {
     "https://mic.t-solution.vn/api/v2/pages/?fields=%2A&locale=vi&type=news.NewsDetailPage&limit=1"
   );
   const [data, setData] = useState<NEW_DETAIL_ITEMS[]>([]);
-  console.log("🚀 ~ file: NewsDemo.tsx:16 ~ NewsDemo ~ data", data);
-
   const [isFetch, setIsFetch] = useState(true);
 
   const { data: resData } = useSWR(nextPost, fetcher);
-  console.log("🚀 ~ file: NewsDemo.tsx:21 ~ NewsDemo ~ resData", resData);
 
   useEffect(() => {
     if (isFetch) {

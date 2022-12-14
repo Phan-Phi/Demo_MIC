@@ -11,6 +11,7 @@ import {
   IPage,
   responseSchema,
 } from "interface";
+import Link from "next/link";
 
 export type HomeProps = IPage<
   [
@@ -36,7 +37,9 @@ export default function Home(props: HomeProps) {
           <Grid item xs={12} marginBottom="3rem">
             <HomeNews data={initData[2]} />
             <Stack alignItems="center" marginTop="2rem">
-              <Button variant="contained">xem them</Button>
+              <Link href="/news">
+                <Button variant="contained">xem thêm</Button>
+              </Link>
             </Stack>
           </Grid>
         </Grid>

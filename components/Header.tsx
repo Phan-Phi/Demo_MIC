@@ -1,4 +1,6 @@
 import useSWR from "swr";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useCallback, useMemo, useState } from "react";
 
 import {
@@ -10,28 +12,26 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-import { Image } from "components";
-import { useMedia } from "hook/useMedia";
 
 import {
   usePopupState,
   bindHover,
   bindPopover,
 } from "material-ui-popup-state/hooks";
-import MenuItem from "@mui/material/MenuItem";
-import { transformUrl } from "libs/transformUrl";
-import { useRouter } from "next/router";
-
-import { PAGES_API, TYPE_PARAMS } from "apis";
-import Link from "next/link";
-import { PRODUCT_CATEGORIES_ITEMS } from "interface/responseSchema/product";
 import HoverPopover from "material-ui-popup-state/HoverPopover";
+
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import { Image } from "components";
+import { useMedia } from "hook/useMedia";
 import { responseSchema } from "interface";
+import { PAGES_API, TYPE_PARAMS } from "apis";
+import { transformUrl } from "libs/transformUrl";
+import { PRODUCT_CATEGORIES_ITEMS } from "interface/responseSchema/product";
 
 const TitleMenu = [
   { id: 0, name: "Trang chủ", link: "/" },
@@ -165,7 +165,7 @@ export default function Header() {
   }, [open, data, popupState]);
 
   return (
-    <Container>
+    <Container id="home">
       {renderNav}
       {AppBar}
     </Container>

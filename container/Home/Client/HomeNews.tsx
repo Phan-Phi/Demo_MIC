@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
+import Link from "next/link";
+
 import TitleLine from "components/TitleLine/TitleLine";
 import { HOME_PAGE_NEW, responseSchema } from "interface";
-import Link from "next/link";
-import React from "react";
 import ROUTES from "routes";
 import { CardItem } from "../../../components";
 
