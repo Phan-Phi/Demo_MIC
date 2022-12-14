@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { useMedia } from "hook/useMedia";
 import Image from "next/image";
-import React from "react";
 import { useMeasure } from "react-use";
 
 export default function TitleLine({ title }: { title: string }) {

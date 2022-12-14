@@ -1,5 +1,4 @@
 import { FormControl, FormLabel, InputBase } from "@mui/material";
-import React from "react";
 import { Control, Controller } from "react-hook-form";
 
 type PropsDemoFormControl = {

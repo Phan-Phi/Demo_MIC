@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import Link from "next/link";
-import Slider from "react-slick";
 
 import { Box } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { PRODUCT_DETAIL_ITEMS } from "../interface/responseSchema/product";
 import CardProduct from "./Card/CardProduct";
 import ROUTES from "../routes";

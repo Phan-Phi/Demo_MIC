@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import React from "react";
 
 interface TabPanelProps {
   index: number;

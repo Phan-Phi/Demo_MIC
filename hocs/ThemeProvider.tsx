@@ -1,5 +1,4 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import React from "react";
 import { customFont } from "../libs/customFont";
 
 const color = {

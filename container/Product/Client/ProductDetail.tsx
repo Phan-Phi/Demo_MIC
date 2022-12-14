@@ -1,3 +1,5 @@
+import useSWR from "swr";
+import { useMeasure } from "react-use";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Box,
@@ -8,18 +10,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import useSWR from "swr";
-
-import { useMeasure } from "react-use";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { transformUrl } from "libs/transformUrl";
-import { PRODUCT_DETAIL_ITEMS } from "interface/responseSchema/product";
 import { PAGES_API, TYPE_PARAMS } from "apis";
-import { IPage } from "interface";
+import { IPage, PRODUCT_DETAIL_ITEMS } from "interface";
+
 import RelatedProduct from "components/RelatedProduct";
 import { Image } from "components";
 
@@ -161,6 +160,15 @@ export default function ProductDetail(props: PropsProductDetail) {
               height: "2rem",
               "&.slick-prev:hover,&.slick-next:hover": {
                 color: `${theme.palette.primary.main} !important`,
+              },
+
+              "&.slick-prev": {
+                position: "absolute",
+                left: -15,
+              },
+              "&.slick-next": {
+                position: "absolute",
+                right: -15,
               },
             },
           }}

@@ -193,7 +193,6 @@
 
 // export default MessageButtons;
 import NewsDemo from "container/News/Client/NewsDemo";
-import React from "react";
 
 export default function Demo() {
   return <NewsDemo />;

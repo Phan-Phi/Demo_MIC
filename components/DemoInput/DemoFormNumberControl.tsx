@@ -19,7 +19,6 @@
 //   );
 // }
 
-import React from "react";
 
 export default function DemoFormNumberControl() {
   return <div>DemoFormNumberControl</div>;

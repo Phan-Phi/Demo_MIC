@@ -3,6 +3,7 @@ export * from "./home";
 export * from "./setting";
 export * from "./gallery";
 export * from "./news";
+export * from "./product";
 
 type responseSchema<T> = {
   meta: {

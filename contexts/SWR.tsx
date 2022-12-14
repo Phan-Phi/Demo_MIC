@@ -1,4 +1,3 @@
-import React from "react";
 import { SWRConfig } from "swr";
 import axios from "../axios.config";
 

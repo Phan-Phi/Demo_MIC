@@ -1,5 +1,4 @@
 import { FormControl, FormLabel, InputBase } from "@mui/material";
-import React from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 
