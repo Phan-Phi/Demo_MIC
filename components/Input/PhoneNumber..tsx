@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import { Control, Controller } from "react-hook-form";
 import {
   FormControl as MuiFormControl,
+  FormHelperText,
   FormLabel,
   InputBase,
   InputProps,
@@ -39,7 +40,7 @@ export default function PhoneNumber(props: Props) {
       name={name}
       render={({ field: { onChange, value }, fieldState: { error } }) => {
         return (
-          <MuiFormControl fullWidth>
+          <MuiFormControl fullWidth error={!!error}>
             <FormLabel>{label}</FormLabel>
 
             <PhoneInput
@@ -53,6 +54,12 @@ export default function PhoneNumber(props: Props) {
               value={value}
               onChange={onChange}
             />
+
+            {error == undefined ? null : (
+              <FormHelperText id="my-helper-text">
+                {error.message}
+              </FormHelperText>
+            )}
           </MuiFormControl>
         );
       }}

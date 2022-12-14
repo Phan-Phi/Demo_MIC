@@ -1,7 +1,7 @@
 export const BLOG = {
   BLOG_PRODUCT: 8,
   BLOG_NEWS: 1,
-  BLOG_GALLERY: 2,
+  BLOG_GALLERY: 1,
 };
 
 export const ROUTES_HEADER = [

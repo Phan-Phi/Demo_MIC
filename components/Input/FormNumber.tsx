@@ -1,6 +1,12 @@
 import React from "react";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
-import { FormControl, FormLabel, InputBase, TextField } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  InputBase,
+  TextField,
+} from "@mui/material";
 import { Control, Controller, FieldValues } from "react-hook-form";
 
 type PropsFormNumber = {
@@ -26,25 +32,35 @@ export default function FormNumber(props: PropsFormNumber) {
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <FormControl fullWidth>
-          <FormLabel>{label}</FormLabel>
-          <NumericFormat
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            customInput={InputBase}
-            thousandSeparator=" "
-            // isAllowed={(values: NumberFormatValues) => {
-            //   const { value } = values;
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
+        console.log("🚀 ~ file: FormNumber.tsx:65 ~ FormNumber ~ error", error);
 
-            //   const parseValueToNumber = parseInt(value);
+        return (
+          <FormControl fullWidth>
+            <FormLabel>{label}</FormLabel>
+            <NumericFormat
+              name={name}
+              placeholder={placeholder}
+              value={value}
+              onChange={onChange}
+              customInput={InputBase}
+              thousandSeparator=" "
+              // isAllowed={(values: NumberFormatValues) => {
+              //   const { value } = values;
 
-            //   return parseValueToNumber < MAX_LIMIT;
-            // }}
-          />
-        </FormControl>
-      )}
+              //   const parseValueToNumber = parseInt(value);
+
+              //   return parseValueToNumber < MAX_LIMIT;
+              // }}
+            />
+            {error == undefined ? null : (
+              <FormHelperText id="my-helper-text">
+                {error.message}
+              </FormHelperText>
+            )}
+          </FormControl>
+        );
+      }}
     />
   );
 }
