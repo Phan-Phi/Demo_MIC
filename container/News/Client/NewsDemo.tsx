@@ -105,3 +105,8 @@
 //     </Container>
 //   );
 // }
+import React from "react";
+
+export default function NewsDemo() {
+  return <div>NewsDemo</div>;
+}
