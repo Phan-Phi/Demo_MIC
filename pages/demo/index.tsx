@@ -193,7 +193,8 @@
 
 // export default MessageButtons;
 import NewsDemo from "container/News/Client/NewsDemo";
+import Home from "container/News/Client/NewsDemo2";
 
 export default function Demo() {
-  return <NewsDemo />;
+  return <Home />;
 }

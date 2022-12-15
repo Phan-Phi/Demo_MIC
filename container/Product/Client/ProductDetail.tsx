@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { useMeasure } from "react-use";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -60,7 +60,7 @@ export default function ProductDetail(props: PropsProductDetail) {
     setRelate(relatedList);
   }, [dataRelate]);
 
-  const renderSliderImage = useMemo(() => {
+  const renderSliderImage = () => {
     const lengthImages = images.length;
 
     return (
@@ -125,7 +125,7 @@ export default function ProductDetail(props: PropsProductDetail) {
         </Box>
       </>
     );
-  }, [nav1, nav2, images]);
+  };
 
   return (
     <Container>
@@ -133,7 +133,7 @@ export default function ProductDetail(props: PropsProductDetail) {
         <Grid item xs={12} md={12} marginBottom="5rem">
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
-              {renderSliderImage}
+              {renderSliderImage()}
             </Grid>
 
             <Grid item xs={12} md={6}>

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Container, Grid, Link, Stack } from "@mui/material";
+import { Button, Container, Grid, Link } from "@mui/material";
 
 import { CardItem } from "components";
 import TitleLine from "components/TitleLine/TitleLine";
@@ -26,7 +26,7 @@ export default function NewsListing(props: NewsProps) {
   const [isFetch, setIsFetch] = useState(false);
   const [nextPost, setNextPost] = useState(nextCatergories);
 
-  const { data: resData } = useSWR(nextPost);
+  const { data: resData, isLoading, isValidating } = useSWR(nextPost);
 
   useEffect(() => {
     if (isFetch) {
@@ -51,20 +51,21 @@ export default function NewsListing(props: NewsProps) {
     setIsFetch(true);
   }, [isFetch]);
 
-  const renderNewsCategories = useMemo(() => {
-    return data.map((el: NEW_DETAIL_ITEMS, idx) => {
-      return (
-        <Grid item xs={12} sm={6} md={4} key={idx}>
-          <Link
-            href={`/${ROUTES.news}/${el.id}`}
-            style={{ textDecoration: "none" }}
-          >
-            <CardItem data={el} />
-          </Link>
-        </Grid>
-      );
-    });
-  }, [data]);
+  // const renderNewsCategories = useMemo(() => {
+  //   return data.map((el: NEW_DETAIL_ITEMS, idx) => {
+  //     return (
+  //       <Grid item xs={12} sm={6} md={4} key={idx}>
+
+  //         <Link
+  //           href={`/${ROUTES.news}/${el.id}`}
+  //           style={{ textDecoration: "none" }}
+  //         >
+  //           <CardItem data={el} />
+  //         </Link>
+  //       </Grid>
+  //     );
+  //   });
+  // }, [data]);
 
   return (
     <Container>
@@ -75,18 +76,28 @@ export default function NewsListing(props: NewsProps) {
 
         <Grid item xs={12}>
           <Grid container spacing={4}>
-            {renderNewsCategories}
+            {data.map((el: NEW_DETAIL_ITEMS, idx) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} key={idx}>
+                  <Link
+                    href={`/${ROUTES.news}/${el.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardItem data={el} />
+                  </Link>
+                </Grid>
+              );
+            })}
           </Grid>
-
-          <Stack alignItems="center" marginTop="2rem">
-            <Button
-              variant="contained"
-              onClick={handlePost}
-              sx={{ display: nextPost ? "block" : "none" }}
-            >
-              Xem Thêm
-            </Button>
-          </Stack>
+        </Grid>
+        <Grid item xs={12} textAlign="center">
+          <Button
+            variant="contained"
+            onClick={handlePost}
+            sx={{ display: nextPost ? "block" : "none", margin: "0 auto" }}
+          >
+            Xem Thêm
+          </Button>
         </Grid>
       </Grid>
     </Container>

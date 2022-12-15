@@ -231,6 +231,7 @@ const RenderMenu = ({
           vertical: "top",
           horizontal: "left",
         }}
+        disableScrollLock={true}
       >
         {dataItem &&
           dataItem.items.map((el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {

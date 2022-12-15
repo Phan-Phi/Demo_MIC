@@ -2,7 +2,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Container, Divider, Grid } from "@mui/material";
+import { Box, Button, Container, Divider, Grid } from "@mui/material";
 
 import CardProduct from "components/Card/CardProduct";
 import TabPanel from "components/Tabs/TabPanel";
@@ -53,7 +53,7 @@ export default function Product(props: ProductProps) {
     },
     excludeKeys: ["limit", "offset", "type"],
   });
-  const { data } = useSWR(transformUrl(PAGES_API, params));
+  const { data, isLoading } = useSWR(transformUrl(PAGES_API, params));
 
   useEffect(() => {
     if (!data) {
@@ -113,6 +113,7 @@ export default function Product(props: ProductProps) {
     if (dataTabpanel == undefined) {
       return null;
     }
+    if (isLoading) return <Box>asdasdasdas</Box>;
     return (
       <TabPanel value={currentTabs} index={currentTabs}>
         <Grid container spacing={3}>
@@ -131,7 +132,7 @@ export default function Product(props: ProductProps) {
         </Grid>
       </TabPanel>
     );
-  }, [dataTabpanel, currentTabs]);
+  }, [dataTabpanel, currentTabs, isLoading]);
 
   return (
     <Container>
@@ -146,6 +147,10 @@ export default function Product(props: ProductProps) {
 
         <Grid item xs={12} marginTop="2rem">
           {renderTabPanel}
+        </Grid>
+
+        <Grid item xs={12} marginTop="2rem" textAlign="center">
+          <Button variant="contained">Xem thêm</Button>
         </Grid>
       </Grid>
     </Container>
