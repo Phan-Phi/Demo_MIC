@@ -2,7 +2,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Box, Button, Container, Divider, Grid, Grow } from "@mui/material";
+import { Box, Button, Container, Divider, Grid } from "@mui/material";
 
 import CardProduct from "components/Card/CardProduct";
 import TabPanel from "components/Tabs/TabPanel";
@@ -50,7 +50,6 @@ export default function Product(props: ProductProps) {
       type: TYPE_PARAMS["product.ProductDetailPage"],
       locale: router.locale,
       limit: BLOG.BLOG_PRODUCT,
-      search: undefined,
     },
     excludeKeys: ["limit", "offset", "type", "search"],
   });
