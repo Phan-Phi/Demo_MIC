@@ -1,5 +1,5 @@
 import { useMeasure } from "react-use";
-import { Box, Typography, useTheme, styled } from "@mui/material";
+import { Box, Typography, useTheme, styled, Grow } from "@mui/material";
 
 import { Fragment } from "react";
 import { PRODUCT_DETAIL_ITEMS } from "../../interface/responseSchema/product";
@@ -19,55 +19,56 @@ export default function CardProduct(props: Props) {
   const { thumbnail, title, description } = data;
 
   return (
-    <Fragment>
-      <Box ref={ref} height={width}>
-        {thumbnail && (
-          // <Image
-          //   src={thumbnail}
-          //   width="100%"
-          //   height={width}
-          //   alt={title}
-          //   style={{ objectFit: "cover", borderRadius: "0.5rem" }}
-          // />
+    <Grow in={true} style={{ transformOrigin: "0 0 0" }}>
+      <Box>
+        <Box ref={ref} height={width}>
+          {thumbnail && (
+            // <Image
+            //   src={thumbnail}
+            //   width="100%"
+            //   height={width}
+            //   alt={title}
+            //   style={{ objectFit: "cover", borderRadius: "0.5rem" }}
+            // />
 
-          <Image
-            alt="image"
-            src={thumbnail}
-            width={width}
-            height={width}
-            style={{ objectFit: "cover", borderRadius: "0.5rem" }}
-          />
-        )}
-      </Box>
-      <Title
-        variant="body2"
-        sx={{
-          color: theme.palette.common.black,
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          overflow: "hidden",
-          WebkitBoxOrient: "vertical",
-          minHeight: 48,
-        }}
-      >
-        {title}
-      </Title>
-
-      {description && (
-        <Typography
-          variant="hairline2"
+            <Image
+              alt="image"
+              src={thumbnail}
+              width={width}
+              height={width}
+              style={{ objectFit: "cover", borderRadius: "0.5rem" }}
+            />
+          )}
+        </Box>
+        <Title
+          variant="body2"
           sx={{
-            display: "inline-block",
-            color: theme.palette.primary.main,
-            borderRadius: "0.5rem",
-            padding: "0.5rem",
-            border: `2px solid ${theme.palette.primary.main}`,
+            color: theme.palette.common.black,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            minHeight: 48,
           }}
         >
-          {description}
-        </Typography>
-      )}
-    </Fragment>
+          {title}
+        </Title>
+        {description && (
+          <Typography
+            variant="hairline2"
+            sx={{
+              display: "inline-block",
+              color: theme.palette.primary.main,
+              borderRadius: "0.5rem",
+              padding: "0.5rem",
+              border: `2px solid ${theme.palette.primary.main}`,
+            }}
+          >
+            {description}
+          </Typography>
+        )}
+      </Box>
+    </Grow>
   );
 }
 

@@ -27,7 +27,7 @@ export default function OurCategories(props: Props) {
         {data &&
           data.items.map((el, idx) => {
             return (
-              <Grid item xs={12} md={6} key={idx}>
+              <Grid item xs={12} md={6} key={idx} className="box1">
                 <Link href={`/${ROUTES.product}/${el.id}`}>
                   <CardCategories data={el} />
                 </Link>
@@ -45,6 +45,7 @@ const CardCategories = (props: PropsCategories) => {
 
   return (
     <Box
+      className="box2"
       ref={ref}
       sx={{
         textAlign: "center",
