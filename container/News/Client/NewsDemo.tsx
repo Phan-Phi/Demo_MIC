@@ -105,8 +105,34 @@
 //     </Container>
 //   );
 // }
+import { extract } from "query-string";
+import YouTube from "react-youtube";
+
 import React from "react";
 
 export default function NewsDemo() {
-  return <div>NewsDemo</div>;
+  const result = extract("https://www.youtube.com/watch?v=x2bqscVkGxk");
+  console.log(result);
+  const opts = {
+    height: "390",
+    width: "640",
+    playerVars: {
+      autoplay: 1,
+    },
+  };
+  return (
+    <div>
+      {/* <iframe
+        width="560"
+        height="315"
+        src="https://f.vimeocdn.com/_videos/home/desktop-masthead-720p-2.mp4"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe> */}
+
+      <YouTube videoId="x2bqscVkGxk" opts={opts} />
+    </div>
+  );
 }

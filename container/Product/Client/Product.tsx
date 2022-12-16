@@ -41,7 +41,6 @@ export default function Product(props: ProductProps) {
 
   const router = useRouter();
 
-  const [checked, setChecked] = useState(false);
   const [currentTabs, setCurrentTabs] = useState<number>(0);
   const [dataTabpanel, setDataTabPanel] = useState(dataDetail);
 
@@ -51,8 +50,9 @@ export default function Product(props: ProductProps) {
       type: TYPE_PARAMS["product.ProductDetailPage"],
       locale: router.locale,
       limit: BLOG.BLOG_PRODUCT,
+      search: undefined,
     },
-    excludeKeys: ["limit", "offset", "type"],
+    excludeKeys: ["limit", "offset", "type", "search"],
   });
   const { data, isLoading } = useSWR(transformUrl(PAGES_API, params));
 
@@ -64,6 +64,17 @@ export default function Product(props: ProductProps) {
   }, [data]);
 
   useEffect(() => {
+    if (router.query.search == undefined) {
+      return;
+    } else {
+      setParams({
+        child_of: undefined,
+        search: router.query.search,
+      });
+    }
+  }, [router]);
+
+  useEffect(() => {
     if (router.query.child_of == undefined) {
       setCurrentTabs(0);
       setParams({
@@ -73,9 +84,34 @@ export default function Product(props: ProductProps) {
       setCurrentTabs(Number(router.query.child_of));
       setParams({
         child_of: router.query.child_of,
+        search: undefined,
       });
     }
   }, [router]);
+  // useUpdateEffect(() => {
+  //   if (router.query.child_of) {
+  //     if (router.query.child_of == undefined) {
+  //       setCurrentTabs(0);
+  //       setParams({
+  //         child_of: undefined,
+  //       });
+  //     } else {
+  //       setCurrentTabs(Number(router.query.child_of));
+  //       setParams({
+  //         child_of: router.query.child_of,
+  //       });
+  //     }
+  //   } else if (router.query.search) {
+  //     if (router.query.search == undefined) {
+  //       return;
+  //     } else {
+  //       setParams({
+  //         child_of: undefined,
+  //         search: router.query.search,
+  //       });
+  //     }
+  //   }
+  // }, [router]);
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: number) => {
@@ -88,6 +124,7 @@ export default function Product(props: ProductProps) {
       } else {
         setParams({
           child_of: newValue,
+          search: undefined,
         });
       }
     },

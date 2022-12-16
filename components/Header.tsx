@@ -32,6 +32,7 @@ import { responseSchema } from "interface";
 import { PAGES_API, TYPE_PARAMS } from "apis";
 import { transformUrl } from "libs/transformUrl";
 import { PRODUCT_CATEGORIES_ITEMS } from "interface/responseSchema/product";
+import { Controller, useForm } from "react-hook-form";
 
 const TitleMenu = [
   { id: 0, name: "Trang chủ", link: "/" },
@@ -55,6 +56,8 @@ export default function Header() {
     popupId: "demoPopover",
   });
 
+  const { handleSubmit, control } = useForm();
+
   const { data } = useSWR<responseSchema<PRODUCT_CATEGORIES_ITEMS>>(
     transformUrl(PAGES_API, {
       locale: router.locale,
@@ -71,13 +74,17 @@ export default function Header() {
     setOpen(false);
   }, []);
 
+  const Submit = useCallback((el: any) => {
+    router.push(`/product?search=${el.search}`);
+  }, []);
+
   const renderNav = useMemo(() => {
     if (data == undefined) {
       return null;
     }
 
     return (
-      <Box marginBottom={3}>
+      <Box component="form" onSubmit={handleSubmit(Submit)} marginBottom={3}>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -107,7 +114,7 @@ export default function Header() {
 
           {isMdUp && (
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Search />
+              <Search control={control} name={"search"} />
 
               <Image alt="logo" width={30} height={30} src="/img/vi 1.png" />
             </Stack>
@@ -183,17 +190,29 @@ const ItemMenu = styled(Typography)(({ theme }) => {
   };
 });
 
-const Search = () => {
+const Search = (props: any) => {
   const { isMdDown } = useMedia();
+  const { control, name } = props;
+
   return (
-    <OutlinedInput
-      fullWidth={isMdDown ? true : false}
-      id="outlined-adornment-weight"
-      placeholder="tìm kiếm..."
-      endAdornment={<SearchIcon />}
-      aria-describedby="outlined-weight-helper-text"
-      inputProps={{
-        "aria-label": "weight",
+    <Controller
+      control={control}
+      name={name}
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
+        return (
+          <OutlinedInput
+            value={value}
+            onChange={onChange}
+            fullWidth={isMdDown ? true : false}
+            id="outlined-adornment-weight"
+            placeholder="tìm kiếm..."
+            endAdornment={<SearchIcon />}
+            aria-describedby="outlined-weight-helper-text"
+            inputProps={{
+              "aria-label": "weight",
+            }}
+          />
+        );
       }}
     />
   );

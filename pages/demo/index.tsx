@@ -196,5 +196,5 @@ import NewsDemo from "container/News/Client/NewsDemo";
 import Home from "container/News/Client/NewsDemo2";
 
 export default function Demo() {
-  return <Home />;
+  return <NewsDemo />;
 }
