@@ -11,7 +11,7 @@ import {
 } from "interface";
 import ROUTES from "routes";
 import useSWR from "swr";
-import Skeleton from "react-loading-skeleton";
+import SkeletonItem from "components/Skeleton";
 
 export type NewsProps = IPage<
   [responseSchema<NEW_LISTING_ITEMS>, responseSchema<NEW_DETAIL_ITEMS>]
@@ -93,15 +93,15 @@ export default function NewsListing(props: NewsProps) {
 
         <Grid item xs={12} textAlign="center">
           {isLoading && (
-            <Grid container>
+            <Grid container spacing={4}>
               <Grid item xs={4}>
-                <Skeleton count={4} />
+                <SkeletonItem />
               </Grid>
               <Grid item xs={4}>
-                <Skeleton count={4} />
+                <SkeletonItem />
               </Grid>
               <Grid item xs={4}>
-                <Skeleton count={4} />
+                <SkeletonItem />
               </Grid>
             </Grid>
           )}
