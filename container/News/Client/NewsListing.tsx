@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Box, Button, Container, Grid, Link } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Container, Grid, Link } from "@mui/material";
 
 import { CardItem } from "components";
 import TitleLine from "components/TitleLine/TitleLine";
@@ -27,7 +27,7 @@ export default function NewsListing(props: NewsProps) {
   const [isFetch, setIsFetch] = useState(true);
   const [nextPost, setNextPost] = useState(nextCatergories);
 
-  const { data: resData, isLoading, isValidating } = useSWR(nextPost);
+  const { data: resData, isLoading } = useSWR(nextPost);
 
   useEffect(() => {
     if (isFetch) {
@@ -62,6 +62,7 @@ export default function NewsListing(props: NewsProps) {
         <Grid item xs={12}>
           <Grid container spacing={4}>
             {data.map((el: NEW_DETAIL_ITEMS, idx) => {
+              console.log("🚀 ~ file: NewsListing.tsx:65 ~ {data.map ~ el", el);
               return (
                 <Grid item xs={12} sm={6} md={4} key={idx}>
                   <Link

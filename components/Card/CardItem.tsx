@@ -3,25 +3,15 @@ import { Box, Grow, styled, Typography, useTheme } from "@mui/material";
 import { format, parseISO } from "date-fns";
 
 import Image from "../Image";
-import { MetaItem } from "../../interface/responseSchema";
+import { NEW_DETAIL_ITEMS } from "../../interface/responseSchema";
 import { RATIO } from "constant";
 import { useMeasure } from "react-use";
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { RenderHTML } from "components/Render/RenderHTML";
 
-interface CardProps {
-  id: number;
-  content?: { block_type: string; value: string }[];
-  last_published_at: string;
-  meta: MetaItem;
-  thumbnail?: string | null;
-  is_on_homepage?: boolean;
-  title: string;
-}
-
 type Props = {
-  data: CardProps;
+  data: NEW_DETAIL_ITEMS;
 };
 
 export default function CardItem(props: Props) {
