@@ -1,21 +1,18 @@
 "use client";
-import DOMPurify from "isomorphic-dompurify";
-import { Box, Fade, Grow, styled, Typography, useTheme } from "@mui/material";
-import { usePathname } from "next/navigation";
+import { Box, Grow, styled, Typography, useTheme } from "@mui/material";
 import { format, parseISO } from "date-fns";
 
 import Image from "../Image";
-import SkeletonItem from "../Skeleton";
 import { MetaItem } from "../../interface/responseSchema";
 import { RATIO } from "constant";
 import { useMeasure } from "react-use";
 
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { RenderHTML } from "components/Render/RenderHTML";
 
 interface CardProps {
   id: number;
-  content?: object[];
+  content?: { block_type: string; value: string }[];
   last_published_at: string;
   meta: MetaItem;
   thumbnail?: string | null;
@@ -24,8 +21,6 @@ interface CardProps {
 }
 
 type Props = {
-  // widthSize?: number;
-  // heightSize?: number;
   data: CardProps;
 };
 
@@ -34,12 +29,6 @@ export default function CardItem(props: Props) {
 
   const [ref, { width }] = useMeasure();
   const theme = useTheme();
-  const pathname: string | null = usePathname();
-
-  const text =
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde quisquam, quam aliquam soluta accusamus dignissimos temporibus ut saepe inventore, facere sed possimus dolorum natus voluptatem esse. Alias inventore rerum velit!";
-
-  // const text2 = data.content[0].value;
 
   return (
     <Grow in={true} style={{ transformOrigin: "0 0 0" }}>
@@ -49,10 +38,9 @@ export default function CardItem(props: Props) {
             <Image
               src={data.thumbnail}
               width="100%"
-              // height={250}
               height={width * RATIO.GALLERY_RATIO_IMAGE}
               alt="Logo"
-              style={{ objectFit: "cover", borderRadius: "0.6rem" }}
+              style={{ objectFit: "contain", borderRadius: "0.6rem" }}
             />
           )}
         </Box>
@@ -83,39 +71,32 @@ export default function CardItem(props: Props) {
         >
           {format(parseISO(data.last_published_at), "dd/MM/yyyy")}
         </Typography>
-        {/* <Box
-      sx={{
-        display: "-webkit-box",
-        WebkitLineClamp: 3,
-        overflow: "hidden",
-        WebkitBoxOrient: "vertical",
-      }}
-      dangerouslySetInnerHTML={{
-        __html: DOMPurify.sanitize(text2, {
-          USE_PROFILES: { svg: false, jpg: false },
-        }),
-      }}
-    ></Box> */}
 
-        {/* {data.content?.map((el, idx) => {
-      if (el.block_type === "content") {
-        return (
-          <Box
-            sx={{
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              overflow: "hidden",
-              WebkitBoxOrient: "vertical",
-            }}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(el.value),
-            }}
-          >
-            sad
-          </Box>
-        );
-      }
-    })} */}
+        {data.content &&
+          data.content?.map((el, idx: number) => {
+            if (el.block_type == "content") {
+              return (
+                <Box
+                  key={idx}
+                  sx={{
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    overflow: "hidden",
+                    WebkitBoxOrient: "vertical",
+                    "& p": {
+                      color: theme.palette.neutral.neutral4,
+                      fontSize: "1rem",
+                    },
+                    "& img": {
+                      display: "none",
+                    },
+                  }}
+                >
+                  {RenderHTML(el.value)}
+                </Box>
+              );
+            }
+          })}
       </Box>
     </Grow>
   );
@@ -139,26 +120,3 @@ const Text = styled(Typography)(({ theme }) => {
     marginTop: "1rem",
   };
 });
-// {pathname == "/news" &&
-// // <Text
-// //   variant="h6"
-// //   sx={{
-// //     display: "-webkit-box",
-// //     WebkitLineClamp: 3,
-// //     overflow: "hidden",
-// //     WebkitBoxOrient: "vertical",
-// //   }}
-// // >
-// //   {text}
-// // </Text>
-// {
-//   /* <Typography
-//   variant="h6"
-//   sx={{
-//     display: "-webkit-box",
-//     WebkitLineClamp: 3,
-//     overflow: "hidden",
-//     WebkitBoxOrient: "vertical",
-//   }}
-// ></Typography> */
-// }}

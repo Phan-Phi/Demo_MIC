@@ -28,7 +28,7 @@ export default function OurCategories(props: Props) {
           data.items.map((el, idx) => {
             return (
               <Grid item xs={12} md={6} key={idx} className="box1">
-                <Link href={`/${ROUTES.product}/${el.id}`}>
+                <Link href={`/product?child_of=${el.id}`}>
                   <CardCategories data={el} />
                 </Link>
               </Grid>

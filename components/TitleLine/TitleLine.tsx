@@ -5,6 +5,7 @@ import { useMeasure } from "react-use";
 
 export default function TitleLine({ title }: { title: string }) {
   const [ref, { width, height }] = useMeasure();
+
   const theme = useTheme();
   const { isSmDown } = useMedia();
 
@@ -26,22 +27,23 @@ export default function TitleLine({ title }: { title: string }) {
         height={sizeHeight}
         alt="frame"
       />
-
-      {/* <Typography
-        ref={ref}
-        variant="h5"
-        textAlign="center"
-        sx={{
-          color: theme.palette.primary.main,
-          position: "absolute",
-          top: "45%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-        component="p"
-      >
-        {title}
-      </Typography> */}
+      <Box ref={ref}>
+        <Typography
+          // ref={ref}
+          variant="h5"
+          textAlign="center"
+          sx={{
+            color: theme.palette.primary.main,
+            position: "absolute",
+            top: "45%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          component="p"
+        >
+          {title}
+        </Typography>
+      </Box>
     </Box>
   );
 }

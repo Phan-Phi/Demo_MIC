@@ -87,30 +87,6 @@ export default function Product(props: ProductProps) {
       });
     }
   }, [router]);
-  // useUpdateEffect(() => {
-  //   if (router.query.child_of) {
-  //     if (router.query.child_of == undefined) {
-  //       setCurrentTabs(0);
-  //       setParams({
-  //         child_of: undefined,
-  //       });
-  //     } else {
-  //       setCurrentTabs(Number(router.query.child_of));
-  //       setParams({
-  //         child_of: router.query.child_of,
-  //       });
-  //     }
-  //   } else if (router.query.search) {
-  //     if (router.query.search == undefined) {
-  //       return;
-  //     } else {
-  //       setParams({
-  //         child_of: undefined,
-  //         search: router.query.search,
-  //       });
-  //     }
-  //   }
-  // }, [router]);
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: number) => {

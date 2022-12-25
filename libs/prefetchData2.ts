@@ -19,7 +19,6 @@ const prefetchData2 = async (
 
     for await (const res of mergeUrlList.map(async (el) => {
       return axios.get(el).then(({ data }) => {
-        console.log("[el, data]", [el, data]);
         return [el, data];
       });
     })) {

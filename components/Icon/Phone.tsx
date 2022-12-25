@@ -1,5 +1,5 @@
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 
 export default function Phone() {
-  return <LocalPhoneOutlinedIcon />;
+  return <LocalPhoneOutlinedIcon sx={{ color: "white" }} />;
 }

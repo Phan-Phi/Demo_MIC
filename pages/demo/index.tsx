@@ -194,7 +194,11 @@
 // export default MessageButtons;
 import NewsDemo from "container/News/Client/NewsDemo";
 import Home from "container/News/Client/NewsDemo2";
+import { transformUrl } from "libs/transformUrl";
 
 export default function Demo() {
+  const demo = transformUrl("https://www.npmjs.com/package/query-string", {
+    locale: "vi",
+  });
   return <NewsDemo />;
 }

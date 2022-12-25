@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { useMeasure } from "react-use";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -32,8 +32,17 @@ export default function ProductDetail(props: PropsProductDetail) {
   const { description, id, images, meta, specification, title } = initData[0];
 
   const [relate, setRelate] = useState<PRODUCT_DETAIL_ITEMS[]>([]);
-  const [nav1, setNav1] = useState<Slider | undefined>(undefined);
-  const [nav2, setNav2] = useState<Slider | undefined>(undefined);
+  // const [nav1, setNav1] = useState<Slider | undefined>(undefined);
+  // console.log("🚀 ~ file: ProductDetail.tsx:36 ~ ProductDetail ~ nav1", nav1);
+  // const [nav2, setNav2] = useState<Slider | undefined>(undefined);
+
+  const navRef = useRef<{
+    nav1: Slider | undefined;
+    nav2: Slider | undefined;
+  }>({
+    nav1: undefined,
+    nav2: undefined,
+  });
 
   const { data: dataRelate } = useSWR(
     transformUrl(PAGES_API, {
@@ -67,12 +76,11 @@ export default function ProductDetail(props: PropsProductDetail) {
       <>
         <Box>
           <Slider
-            asNavFor={nav2}
-            // ref={(slider1) => setNav1(slider1)}
-
+            asNavFor={navRef.current.nav2}
             ref={(slider) => {
               if (slider == null) return;
-              setNav1(slider);
+
+              navRef.current.nav1 = slider;
             }}
           >
             {images &&
@@ -85,7 +93,7 @@ export default function ProductDetail(props: PropsProductDetail) {
                       width="100%"
                       height={width}
                       alt="Logo"
-                      style={{ objectFit: "cover", borderRadius: "0.6rem" }}
+                      style={{ objectFit: "contain", borderRadius: "0.6rem" }}
                     />
                   </Box>
                 );
@@ -97,10 +105,11 @@ export default function ProductDetail(props: PropsProductDetail) {
           sx={{ marginTop: "1rem", "& .slick-slide": { padding: "0 0.5rem" } }}
         >
           <Slider
-            asNavFor={nav1}
+            asNavFor={navRef.current.nav1}
             ref={(slider) => {
               if (slider == null) return;
-              setNav2(slider);
+              // setNav2(slider);
+              navRef.current.nav2 = slider;
             }}
             slidesToShow={3}
             swipeToSlide={true}

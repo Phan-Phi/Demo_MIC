@@ -11,6 +11,7 @@ import {
   Stack,
   styled,
   Typography,
+  useTheme,
 } from "@mui/material";
 
 import {
@@ -225,10 +226,13 @@ const RenderMenu = ({
   data: { id: number; name: string; link: string };
   dataItem: PropsRenderMenu;
 }) => {
+  const theme = useTheme();
+
   const popupState = usePopupState({
     variant: "popover",
     popupId: "demoPopover",
   });
+
   return (
     <Box>
       <Link href={data.link} {...bindHover(popupState)}>
@@ -255,7 +259,22 @@ const RenderMenu = ({
         {dataItem &&
           dataItem.items.map((el: PRODUCT_CATEGORIES_ITEMS, idx: number) => {
             return (
-              <MenuItem key={idx} onClick={popupState.close}>
+              <MenuItem
+                key={idx}
+                onClick={popupState.close}
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "white",
+                  },
+
+                  "& span": {
+                    display: "block",
+                  },
+                  "& span:hover": {
+                    color: theme.palette.primary.main,
+                  },
+                }}
+              >
                 <Link href={`/product?child_of=${el.id}`}>
                   <Typography variant="caption2">{el.title}</Typography>
                 </Link>

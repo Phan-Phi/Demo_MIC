@@ -36,7 +36,7 @@ export default function Footer() {
     })
   );
 
-  const { logo, email, hotline, address, social_icons } = setting;
+  const { logo, emails, hotline, address, social_icons } = setting;
 
   const renderSocialIcon = useMemo(() => {
     if (social_icons == undefined) {
@@ -139,15 +139,21 @@ export default function Footer() {
               </Grid>
 
               <Grid item xs={12}>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  spacing={1}
-                  marginBottom={1}
-                >
-                  <Mail />
-                  {email && <TextMenu variant="caption2">{email}</TextMenu>}
-                </Stack>
+                {emails &&
+                  emails.map((el, idx: number) => {
+                    return (
+                      <Stack
+                        key={idx}
+                        direction="row"
+                        alignItems="center"
+                        spacing={1}
+                        marginBottom={1}
+                      >
+                        <Mail />
+                        <TextMenu variant="caption2">{el.value}</TextMenu>
+                      </Stack>
+                    );
+                  })}
               </Grid>
 
               <Grid item xs={12}>
@@ -164,7 +170,7 @@ export default function Footer() {
                 </Stack>
               </Grid>
               {isMdUp && (
-                <Grid item xs={12}>
+                <Grid item xs={12} marginTop="1rem">
                   <Stack direction="row" spacing={2}>
                     {renderSocialIcon}
                   </Stack>

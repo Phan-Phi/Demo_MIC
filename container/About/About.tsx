@@ -17,7 +17,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { Image } from "components";
 import { useMeasure } from "react-use";
 import { useMemo } from "react";
-import DOMPurify from "isomorphic-dompurify";
 import { RenderHTML } from "components/Render/RenderHTML";
 
 export type PropsAbout = IPage<[responseSchema<ITEM_ABOUT>]>;
@@ -88,7 +87,7 @@ export default function About(props: PropsAbout) {
     <Container>
       <Grid container>
         <Grid item xs={12}>
-          {/* <TitleLine title={story_title} /> */}
+          <TitleLine title={story_title} />
         </Grid>
 
         <Grid item xs={12}>

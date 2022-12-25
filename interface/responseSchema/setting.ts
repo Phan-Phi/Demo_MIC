@@ -2,7 +2,7 @@ export interface SETTING_ITEM {
   id: number;
   logo: string;
   social_icons: SocialItem[];
-  email: string;
+  emails: { block_type: string; value: string }[];
   address: string;
   hotline: string;
   site: number;
